@@ -2,6 +2,7 @@
 name = "openapi-validator-proxy"
 version = "0.1.0"
 edition = "2021"
+repository = "https://github.com/PatOConnor43/openapi-validator-proxy"
 
 [dependencies]
 askama = "0.12.1"
@@ -26,3 +27,8 @@ httpmock = "0.7.0"
 insta = "1.40.0"
 insta-cmd = "0.6.0"
 rand = "0.8.5"
+
+# The profile that 'cargo dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
