@@ -1,0 +1,8 @@
+<testsuites tests="{{testcases.len()}}" failures="{{failed_testcases}}">{% for case in testcases %}
+    <testcase name="{{case.name}}" time="{{case.time}}">
+        <properties>{% for prop in case.properties %}
+            <property name="{{prop.name}}" value="{{prop.value}}"></property>{% endfor %}
+        </properties>{% for failure in case.failures %}
+        <failure type="{{failure.type}}" message="error">{{ failure.text|safe }}</failure>{% endfor %}
+    </testcase>{% endfor %}
+</testsuites>
