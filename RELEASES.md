@@ -1,3 +1,9 @@
+# Version 0.1.1 (2024-10-21)
+Chores:
+  - Updated README to mention looking for binaries in the releases tab
+  - Added integration tests
+  - Add CI workflow to run tests/linting/formatting
+
 # Version 0.1.0 (2024-10-21)
 
 Initial release!
