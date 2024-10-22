@@ -1,0 +1,15 @@
+---
+source: tests/integration.rs
+expression: xml
+---
+<testsuites tests="1" failures="1">
+    <testcase name="missing_content_type_header" time="0.00">
+        <properties>
+            <property name="path" value="/pets"></property>
+            <property name="method" value="GET"></property>
+            <property name="statusCode" value="200"></property>
+            <property name="operationId" value="listPets"></property>
+        </properties>
+        <failure type="MissingContentTypeHeader" message="error">Response did not include a Content-Type header</failure>
+    </testcase>
+</testsuites>

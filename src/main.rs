@@ -159,6 +159,7 @@ struct ValidatedResponse {
     body: Vec<u8>,
     failures: Vec<TestcaseFailure>,
     headers: axum::http::HeaderMap,
+    #[allow(dead_code)]
     method: axum::http::Method,
     properties: Vec<TestcaseProperty>,
     status: u16,
@@ -705,7 +706,7 @@ fn validate_schema(
 }
 
 fn create_schema_for_all_of(
-    all_of: &Vec<openapiv3::ReferenceOr<openapiv3::Schema>>,
+    all_of: &[openapiv3::ReferenceOr<openapiv3::Schema>],
     spec: &openapiv3::OpenAPI,
 ) -> openapiv3::Schema {
     let schemas = all_of
