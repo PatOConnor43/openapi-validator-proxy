@@ -1,0 +1,14 @@
+---
+source: tests/integration.rs
+expression: xml
+---
+<testsuites tests="1" failures="1">
+    <testcase name="path_not_found" time="0.00">
+        <properties>
+            <property name="path" value="/pet"></property>
+            <property name="method" value="GET"></property>
+            <property name="statusCode" value="404"></property>
+        </properties>
+        <failure type="PathNotFound" message="error">Path not found</failure>
+    </testcase>
+</testsuites>

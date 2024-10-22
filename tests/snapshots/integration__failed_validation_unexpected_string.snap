@@ -1,0 +1,17 @@
+---
+source: tests/integration.rs
+expression: xml
+---
+<testsuites tests="1" failures="1">
+    <testcase name="failed_validation_unexpected_string" time="0.00">
+        <properties>
+            <property name="path" value="/pets/1"></property>
+            <property name="method" value="GET"></property>
+            <property name="pathParameter-petId" value="1"></property>
+            <property name="statusCode" value="200"></property>
+            <property name="operationId" value="showPetById"></property>
+            <property name="responseContentType" value="application/json"></property>
+        </properties>
+        <failure type="FailedValidation.UnexpectedString" message="error">Received unexpected string at /id/</failure>
+    </testcase>
+</testsuites>

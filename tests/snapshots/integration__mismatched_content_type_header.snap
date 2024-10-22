@@ -1,0 +1,16 @@
+---
+source: tests/integration.rs
+expression: xml
+---
+<testsuites tests="1" failures="1">
+    <testcase name="mismatched_content_type_header" time="0.00">
+        <properties>
+            <property name="path" value="/pets"></property>
+            <property name="method" value="GET"></property>
+            <property name="statusCode" value="200"></property>
+            <property name="operationId" value="listPets"></property>
+            <property name="responseContentType" value="wrong"></property>
+        </properties>
+        <failure type="MismatchedContentTypeHeader" message="error">Spec does not contain matching response for Content-Type: wrong</failure>
+    </testcase>
+</testsuites>
