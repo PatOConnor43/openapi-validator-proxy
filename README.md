@@ -34,6 +34,14 @@ openapi-validator-proxy proxy petstore.yaml http://localhost:8080
 
 This will read the OpenAPI file `petstore.yaml` and proxy requests to `http://localhost:8080`.
 
+## Contributing
+
+### Testing
+
+This project uses [cargo-insta](https://crates.io/crates/cargo-insta) to create snapshots of the output to test against. Insta provides a tool that makes running these tests and reviewing their output easier. To install it run `cargo install cargo-insta`. Once this is installed, changes can be reviewed with `cargo insta test --review`.
+
+If you're just trying to run the tests you can run `cargo test`.
+
 ### Release Notes
 Release notes can be found on each individual tagged release as well as within the [RELEASES.md](RELEASES.md) file.
 
