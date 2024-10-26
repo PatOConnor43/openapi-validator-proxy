@@ -16,8 +16,10 @@ use tracing_subscriber::FmtSubscriber;
 use ureq::OrAnyStatus;
 
 #[derive(Parser)]
-#[command(name = "openapi-validator-proxy")]
-#[command(about = "A CLI application to validate OpenAPI specification requests and responses.", long_about = None)]
+#[command(
+    about = "A CLI application to validate OpenAPI specification requests and responses.",
+    version
+)]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
