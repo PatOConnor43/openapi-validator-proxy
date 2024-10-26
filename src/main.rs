@@ -42,11 +42,23 @@ enum Commands {
     },
 }
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 struct AppState {
     spec: openapiv3::OpenAPI,
     upstream: url::Url,
     testcases: Arc<Mutex<Vec<Testcase>>>,
+    wayfinder: wayfind::Router<()>,
+}
+
+impl std::fmt::Debug for AppState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("AppState")
+            .field("spec", &self.spec)
+            .field("upstream", &self.upstream)
+            .field("testcases", &self.testcases)
+            .field("wayfinder", &"wayfinder::Router<()>")
+            .finish()
+    }
 }
 
 #[derive(Debug, Clone, Template)]
@@ -211,10 +223,17 @@ async fn start_server(spec: openapiv3::OpenAPI, upstream: url::Url, port: u16) {
 
     tracing::subscriber::set_global_default(subscriber).expect("setting default subscriber failed");
 
+    let mut wayfinder = wayfind::Router::new();
+    for (path_template, _) in spec.paths.paths.iter() {
+        let path_template = path_template.to_string();
+        wayfinder.insert(&path_template, ()).unwrap();
+    }
+
     let state = AppState {
         spec,
         upstream,
         testcases: Arc::new(Mutex::new(vec![])),
+        wayfinder,
     };
 
     let app = Router::new()
@@ -238,7 +257,7 @@ async fn start_server(spec: openapiv3::OpenAPI, upstream: url::Url, port: u16) {
         .unwrap();
 }
 
-#[instrument(skip(state))]
+#[instrument(skip_all)]
 #[debug_handler(state = AppState)]
 async fn junit(state: State<AppState>) -> impl IntoResponse {
     let testcases = state.testcases.lock().await.clone();
@@ -257,7 +276,7 @@ async fn junit(state: State<AppState>) -> impl IntoResponse {
     (axum::http::StatusCode::OK, header_map, rendered)
 }
 
-#[instrument(skip(state, request))]
+#[instrument(skip_all)]
 #[debug_handler(state = AppState)]
 async fn root(state: State<AppState>, request: Request) -> impl IntoResponse {
     inner_handler(state, request).await
@@ -268,6 +287,7 @@ async fn inner_handler(
         spec,
         upstream,
         testcases,
+        wayfinder,
     }): State<AppState>,
     request: Request,
 ) -> impl IntoResponse {
@@ -286,12 +306,6 @@ async fn inner_handler(
         name: "method".to_string(),
         value: method.to_string(),
     });
-
-    let mut wayfinder = wayfind::Router::new();
-    for (path_template, _) in spec.paths.paths.iter() {
-        let path_template = path_template.to_string();
-        let _ = wayfinder.insert(&path_template, ());
-    }
 
     let wayfinder_path = wayfind::Path::new(path).unwrap();
     let wayfinder_match = wayfinder.search(&wayfinder_path).unwrap();
