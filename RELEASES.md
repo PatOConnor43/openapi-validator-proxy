@@ -1,3 +1,8 @@
+# Version 0.2.0 (2024-10-25)
+New Features:
+  - Support for suffixed upstream url
+    - This allows the proxy to work with servers that are mounted at a path other than the root. For example, if your server is mounted at `/api/v1` you can run `openapi-validator-proxy proxy petstore.yaml http://localhost:8080/api/v1`. Make a GET request to `http://localhost:3000/api/v1/pets` and the proxy will forward the request to `http://localhost:8080/api/v1/pets`. Validation will match against the `GET /pets` operation in the OpenAPI file.
+
 # Version 0.1.2 (2024-10-25)
 New Features:
   - Add --version flag to print the version of the binary
