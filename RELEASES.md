@@ -1,3 +1,7 @@
+# Version 0.1.2 (2024-10-25)
+New Features:
+  - Add --version flag to print the version of the binary
+
 # Version 0.1.1 (2024-10-21)
 Chores:
   - Updated README to mention looking for binaries in the releases tab
