@@ -37,7 +37,8 @@ enum Commands {
         #[arg(value_name = "UPSTREAM")]
         upstream: url::Url,
 
-        #[arg(short, long)]
+        /// Port to run the proxy server on
+        #[arg(short, long, default_value = "3000")]
         port: Option<u16>,
     },
 }

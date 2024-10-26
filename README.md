@@ -34,6 +34,18 @@ openapi-validator-proxy proxy petstore.yaml http://localhost:8080
 
 This will read the OpenAPI file `petstore.yaml` and proxy requests to `http://localhost:8080`.
 
+Including a suffix on the upstream URL is also valid if you don't mount your routes directly at the root of the server. For example, if your server is mounted at `/api/v1` you can run:
+```
+openapi-validator-proxy proxy petstore.yaml http://localhost:8080/api/v1
+```
+
+Then make a GET request to the pets collection like this:
+```
+curl http://localhost:3000/api/v1/pets
+```
+This will proxy the request to `http://localhost:8080/api/v1/pets` and validate the request and response against the OpenAPI operation that matches `GET /pets`.
+
+
 ## Contributing
 
 ### Testing
