@@ -295,9 +295,25 @@ async fn inner_handler(
     let mut properties = vec![];
     let method = request.method().clone();
     let path = request.uri().path();
+    let upstream_path = upstream.path();
+    // We are stripping the upstream path from the request path so that we can match it against the OpenAPI spec.
+    // We still use the full path to make the actual request to the upstream server.
+    let path = match path.strip_prefix(upstream_path) {
+        Some(p) => {
+            // Stripping the prefix successfully will have the affect of losing the leading slash
+            // so we add that back here.
+            format!("/{}", p)
+        }
+        None => path.to_string(),
+    };
+
     let path_and_query = request.uri().path_and_query().unwrap();
     let url = upstream.join(path_and_query.as_str()).unwrap();
-    info!("Handling request: {} {}", method, url);
+    info!(
+        method = method.as_str(),
+        url = url.to_string(),
+        "Handling request"
+    );
     properties.push(TestcaseProperty {
         name: "path".to_string(),
         value: path.to_string(),
@@ -307,7 +323,7 @@ async fn inner_handler(
         value: method.to_string(),
     });
 
-    let wayfinder_path = wayfind::Path::new(path).unwrap();
+    let wayfinder_path = wayfind::Path::new(&path).unwrap();
     let wayfinder_match = wayfinder.search(&wayfinder_path).unwrap();
     match &wayfinder_match {
         Some(wayfound) => {
