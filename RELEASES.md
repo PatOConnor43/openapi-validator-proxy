@@ -1,3 +1,7 @@
+# Version 0.3.0 (2024-10-27)
+Chores:
+  - Trying to put together a GitHub pages site for the project
+
 # Version 0.2.0 (2024-10-25)
 New Features:
   - Support for suffixed upstream url
