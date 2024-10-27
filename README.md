@@ -62,7 +62,7 @@ This project uses [cargo-dist](https://opensource.axo.dev/cargo-dist/) and [carg
 
 The release process looks like this:
 - Checkout master
-- Create commit that updates CHANGELOG.md with notes for the new release and push commit
+- Create commit that updates RELEASES.md with notes for the new release and push commit
 - Run `cargo release patch` (or minor or major) and verify the release looks correct
 - Run `cargo release patch --execute --no-publish` to create the tag and push it to GitHub
 - The GitHub Action should start immediately for the tag

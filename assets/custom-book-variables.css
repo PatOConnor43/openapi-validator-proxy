@@ -1,9 +1,0 @@
-.oranda-dark {
-    --custom-dark-text: #dff2dc;
-    --custom-dark-background: #040903;
-    --custom-dark-primary: #0a7f00;
-    --custom-dark-secondary: #2f8381;
-    --custom-dark-accent: #5fa5c5;
-
-    --title-fg: var(--custom-dark-secondary);
-}

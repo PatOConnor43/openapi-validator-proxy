@@ -10,7 +10,7 @@ openapi-validator-proxy works by creating a server that listens for requests and
 - API Validation MUST be agnostic to the clients and servers.
 - API Validation MUST NOT interfere with existing workflows for building APIs.
 - API Validation SHOULD be easy!
-	- It MUST be "one thing". You run one extra command.
+    - It MUST be "one thing". You run one extra command.
     - It MUST be invoked locally the same way as in CI.
 
 This tool accomplishes these goals by providing the following:
