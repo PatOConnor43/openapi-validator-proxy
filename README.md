@@ -1,4 +1,6 @@
+<div class="oranda-hide">
 # openapi-validator-proxy
+</div
 
 This project is an attempt at providing API Validation for any service that
 uses an OpenAPI specification. Specifically, this project is designed to proxy
@@ -53,9 +55,6 @@ This will proxy the request to `http://localhost:8080/api/v1/pets` and validate 
 This project uses [cargo-insta](https://crates.io/crates/cargo-insta) to create snapshots of the output to test against. Insta provides a tool that makes running these tests and reviewing their output easier. To install it run `cargo install cargo-insta`. Once this is installed, changes can be reviewed with `cargo insta test --review`.
 
 If you're just trying to run the tests you can run `cargo test`.
-
-### Release Notes
-Release notes can be found on each individual tagged release as well as within the [RELEASES.md](RELEASES.md) file.
 
 ### Releasing this project
 

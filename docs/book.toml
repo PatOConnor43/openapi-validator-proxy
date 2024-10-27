@@ -1,0 +1,10 @@
+[book]
+authors = ["Pat O'Connor"]
+language = "en"
+multilingual = false
+src = "src"
+
+[output.html]
+copy-fonts = true
+
+[preprocessor.cmdrun]
