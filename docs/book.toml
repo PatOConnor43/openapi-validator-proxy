@@ -1,0 +1,22 @@
+[book]
+authors = ["Pat O'Connor"]
+language = "en"
+multilingual = false
+src = "src"
+
+[output.html]
+copy-fonts = true
+additional-css = [
+"theme/ayu-highlight.css",
+"theme/highlight.css",
+"theme/oranda-highlight.css",
+"theme/tomorrow-night.css"
+]
+additional-js = [
+"theme/clipboard.min.js",
+"theme/elasticlunr.min.js",
+"theme/highlight.js",
+"theme/mark.min.js",
+"theme/searcher.js",
+"theme/searchindex.js",
+]
