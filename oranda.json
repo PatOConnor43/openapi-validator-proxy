@@ -10,7 +10,7 @@
     },
     "mdbook": {
       "path": "./docs",
-      "theme": false
+      "theme": true
     }
   }
 }

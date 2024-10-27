@@ -1,4 +1,6 @@
+<div class="oranda-hide">
 # openapi-validator-proxy
+</div
 
 This project is an attempt at providing API Validation for any service that
 uses an OpenAPI specification. Specifically, this project is designed to proxy
