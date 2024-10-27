@@ -56,9 +56,6 @@ This project uses [cargo-insta](https://crates.io/crates/cargo-insta) to create 
 
 If you're just trying to run the tests you can run `cargo test`.
 
-### Release Notes
-Release notes can be found on each individual tagged release as well as within the [CHANGELOG.md](CHANGELOG.md) file.
-
 ### Releasing this project
 
 This project uses [cargo-dist](https://opensource.axo.dev/cargo-dist/) and [cargo-release](https://github.com/crate-ci/cargo-release) for the release process.
