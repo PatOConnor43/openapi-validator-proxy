@@ -57,7 +57,7 @@ This project uses [cargo-insta](https://crates.io/crates/cargo-insta) to create 
 If you're just trying to run the tests you can run `cargo test`.
 
 ### Release Notes
-Release notes can be found on each individual tagged release as well as within the [RELEASES.md](RELEASES.md) file.
+Release notes can be found on each individual tagged release as well as within the [CHANGELOG.md](CHANGELOG.md) file.
 
 ### Releasing this project
 
@@ -65,7 +65,7 @@ This project uses [cargo-dist](https://opensource.axo.dev/cargo-dist/) and [carg
 
 The release process looks like this:
 - Checkout master
-- Create commit that updates RELEASES.md with notes for the new release and push commit
+- Create commit that updates CHANGELOG.md with notes for the new release and push commit
 - Run `cargo release patch` (or minor or major) and verify the release looks correct
 - Run `cargo release patch --execute --no-publish` to create the tag and push it to GitHub
 - The GitHub Action should start immediately for the tag

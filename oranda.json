@@ -1,20 +1,17 @@
 {
-  "build": {
-    "path_prefix": "openapi-validator-proxy"
-  },
-  "styles": {
-    "theme": "axodark",
-    "additional_css": ["assets/file.css"]
-  },
-  "components": {
-    "changelog": true,
-    "artifacts": {
-        "cargo_dist": true
+    "styles": {
+        "theme": "axodark",
+        "additional_css": ["assets/file.css"]
     },
-    "mdbook": {
-      "path": "./docs",
-      "theme": true
+    "components": {
+        "changelog": true,
+        "artifacts": {
+            "cargo_dist": true
+        },
+        "mdbook": {
+            "path": "./docs",
+            "theme": true
+        }
     }
-  }
 }
 
