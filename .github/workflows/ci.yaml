@@ -1,5 +1,5 @@
 # The "Normal" CI for tests and linters and whatnot
-name: Rust CI
+name: CI
 
 # Ci should be run on...
 on:

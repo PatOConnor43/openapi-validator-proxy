@@ -1,4 +1,7 @@
 {
+  "build": {
+    "path_prefix": "openapi-validator-proxy"
+  },
   "styles": {
     "theme": "axodark",
     "additional_css": ["assets/file.css"]

@@ -6,7 +6,5 @@ src = "src"
 
 [output.html]
 copy-fonts = true
-additional-css = [
-]
-additional-js = [
-]
+
+[preprocessor.cmdrun]
