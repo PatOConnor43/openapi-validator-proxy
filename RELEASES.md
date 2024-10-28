@@ -1,3 +1,7 @@
+# Version 0.3.1 (2024-10-27)
+Chores:
+  - Fixing the GitHub pages site. I was looking at the wrong default branch.
+
 # Version 0.3.0 (2024-10-27)
 Chores:
   - Trying to put together a GitHub pages site for the project
