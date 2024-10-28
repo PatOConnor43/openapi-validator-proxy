@@ -51,8 +51,12 @@ jobs:
       - name: Install and run oranda
         run: |
           curl --proto '=https' --tlsv1.2 -LsSf https://github.com/axodotdev/oranda/releases/download/v0.6.1/oranda-installer.sh | sh
+          cargo install mdbook
           cargo install mdbook-cmdrun
           oranda build
+          ls target
+          ls target/doc
+          cat public/book/validation_failures.html
       
       - name: Prepare HTML for link checking
         # untitaker/hyperlink supports no site prefixes, move entire site into
