@@ -1,3 +1,7 @@
+# Version 0.3.2 (2024-10-27)
+Bug Fixes:
+  - Entries in the Validation Failures page were missing because the script used to generate the entries required rust nightly. The site build now uses the nightly toolchain to accomodate this.
+
 # Version 0.3.1 (2024-10-27)
 Chores:
   - Fixing the GitHub pages site. I was looking at the wrong default branch.
