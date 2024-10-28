@@ -7,3 +7,4 @@
 - [Custom Headers](./custom_headers.md)
 - [Reports](./reports.md)
   - [JUnit](./report_junit.md)
+- [Contributing](./contributing.md)

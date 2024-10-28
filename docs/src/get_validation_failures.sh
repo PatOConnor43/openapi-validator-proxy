@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # This is a script that relies on rustdoc to generate a markdown table for the validation failures.
+# rustdoc json output docs can be found here:
+# https://rust-lang.github.io/rfcs/2963-rustdoc-json.html
 
 cd ..
 cargo +nightly rustdoc -Z unstable-options --output-format json
