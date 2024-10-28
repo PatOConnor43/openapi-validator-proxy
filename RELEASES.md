@@ -1,3 +1,9 @@
+# Version 0.3.3 (2024-10-27)
+Chores:
+  - Adding documentation pages for Custom Headers, Reports, JUnit, and Contributing
+Bug Fixes:
+  - Depending on if you ended the upstream suffix with a `/` or not, the proxy would not correctly match the operation in the OpenAPI file. This has been fixed so that the proxy will correctly match the operation in the OpenAPI file regardless of an ending `/` on the upstream URL.
+
 # Version 0.3.2 (2024-10-27)
 Bug Fixes:
   - Entries in the Validation Failures page were missing because the script used to generate the entries required rust nightly. The site build now uses the nightly toolchain to accomodate this.
