@@ -301,9 +301,12 @@ async fn inner_handler(
     // We still use the full path to make the actual request to the upstream server.
     let path = match path.strip_prefix(upstream_path) {
         Some(p) => {
-            // Stripping the prefix successfully will have the affect of losing the leading slash
-            // so we add that back here.
-            format!("/{}", p)
+            // Make sure the path starts with a slash
+            if p.starts_with("/") {
+                p.to_string()
+            } else {
+                format!("/{}", p)
+            }
         }
         None => path.to_string(),
     };
