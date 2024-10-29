@@ -2,13 +2,15 @@
 source: tests/integration.rs
 expression: xml
 ---
-<testsuites tests="1" failures="1">
-    <testcase name="invalid_http_method" time="0.00">
-        <properties>
-            <property name="path" value="/pets"></property>
-            <property name="method" value="DELETE"></property>
-            <property name="statusCode" value="405"></property>
-        </properties>
-        <failure type="InvalidHTTPMethod" message="error">Invalid HTTP method</failure>
-    </testcase>
+<testsuites>
+    <testsuite name="testsuite" tests="1" failures="1">
+        <testcase name="invalid_http_method" time="0.00">
+            <properties>
+                <property name="path" value="/pets"></property>
+                <property name="method" value="DELETE"></property>
+                <property name="statusCode" value="405"></property>
+            </properties>
+            <failure type="InvalidHTTPMethod" message="error">Invalid HTTP method</failure>
+        </testcase>
+    </testsuite>
 </testsuites>
