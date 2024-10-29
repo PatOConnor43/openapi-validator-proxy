@@ -2,15 +2,17 @@
 source: tests/integration.rs
 expression: xml
 ---
-<testsuites tests="1" failures="1">
-    <testcase name="failed_validation_unsupported_schema_kind" time="0.00">
-        <properties>
-            <property name="path" value="/any_of_pet_schema"></property>
-            <property name="method" value="GET"></property>
-            <property name="statusCode" value="200"></property>
-            <property name="operationId" value="anyOfPetSchema"></property>
-            <property name="responseContentType" value="application/json"></property>
-        </properties>
-        <failure type="FailedValidation.UnsupportedSchemaKind" message="error">Received unsupported schema kind: AnyOf { any_of: [Reference { reference: "#/components/schemas/Pet" }, Item(Schema { schema_data: SchemaData { nullable: false, read_only: false, write_only: false, deprecated: false, external_docs: None, example: None, title: None, description: None, discriminator: None, default: None, extensions: {} }, schema_kind: Type(Object(ObjectType { properties: {"id": Item(Schema { schema_data: SchemaData { nullable: false, read_only: false, write_only: false, deprecated: false, external_docs: None, example: None, title: None, description: None, discriminator: None, default: None, extensions: {} }, schema_kind: Type(Integer(IntegerType { format: Item(Int64), multiple_of: None, exclusive_minimum: false, exclusive_maximum: false, minimum: None, maximum: None, enumeration: [] })) }), "name": Item(Schema { schema_data: SchemaData { nullable: false, read_only: false, write_only: false, deprecated: false, external_docs: None, example: None, title: None, description: None, discriminator: None, default: None, extensions: {} }, schema_kind: Type(String(StringType { format: Empty, pattern: None, enumeration: [], min_length: None, max_length: None })) })}, required: ["id", "name"], additional_properties: None, min_properties: None, max_properties: None })) })] } at /</failure>
-    </testcase>
+<testsuites>
+    <testsuite name="testsuite" tests="1" failures="1">
+        <testcase name="failed_validation_unsupported_schema_kind" time="0.00">
+            <properties>
+                <property name="path" value="/any_of_pet_schema"></property>
+                <property name="method" value="GET"></property>
+                <property name="statusCode" value="200"></property>
+                <property name="operationId" value="anyOfPetSchema"></property>
+                <property name="responseContentType" value="application/json"></property>
+            </properties>
+            <failure type="FailedValidation.UnsupportedSchemaKind" message="error">Received unsupported schema kind: AnyOf { any_of: [Reference { reference: "#/components/schemas/Pet" }, Item(Schema { schema_data: SchemaData { nullable: false, read_only: false, write_only: false, deprecated: false, external_docs: None, example: None, title: None, description: None, discriminator: None, default: None, extensions: {} }, schema_kind: Type(Object(ObjectType { properties: {"id": Item(Schema { schema_data: SchemaData { nullable: false, read_only: false, write_only: false, deprecated: false, external_docs: None, example: None, title: None, description: None, discriminator: None, default: None, extensions: {} }, schema_kind: Type(Integer(IntegerType { format: Item(Int64), multiple_of: None, exclusive_minimum: false, exclusive_maximum: false, minimum: None, maximum: None, enumeration: [] })) }), "name": Item(Schema { schema_data: SchemaData { nullable: false, read_only: false, write_only: false, deprecated: false, external_docs: None, example: None, title: None, description: None, discriminator: None, default: None, extensions: {} }, schema_kind: Type(String(StringType { format: Empty, pattern: None, enumeration: [], min_length: None, max_length: None })) })}, required: ["id", "name"], additional_properties: None, min_properties: None, max_properties: None })) })] } at /</failure>
+        </testcase>
+    </testsuite>
 </testsuites>

@@ -2,16 +2,18 @@
 source: tests/integration.rs
 expression: xml
 ---
-<testsuites tests="1" failures="1">
-    <testcase name="failed_validation_unexpected_boolean" time="0.00">
-        <properties>
-            <property name="path" value="/pets/1"></property>
-            <property name="method" value="GET"></property>
-            <property name="pathParameter-petId" value="1"></property>
-            <property name="statusCode" value="200"></property>
-            <property name="operationId" value="showPetById"></property>
-            <property name="responseContentType" value="application/json"></property>
-        </properties>
-        <failure type="FailedValidation.UnexpectedBoolean" message="error">Received unexpected boolean at /id/</failure>
-    </testcase>
+<testsuites>
+    <testsuite name="testsuite" tests="1" failures="1">
+        <testcase name="failed_validation_unexpected_boolean" time="0.00">
+            <properties>
+                <property name="path" value="/pets/1"></property>
+                <property name="method" value="GET"></property>
+                <property name="pathParameter-petId" value="1"></property>
+                <property name="statusCode" value="200"></property>
+                <property name="operationId" value="showPetById"></property>
+                <property name="responseContentType" value="application/json"></property>
+            </properties>
+            <failure type="FailedValidation.UnexpectedBoolean" message="error">Received unexpected boolean at /id/</failure>
+        </testcase>
+    </testsuite>
 </testsuites>
