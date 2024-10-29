@@ -1,3 +1,7 @@
+# Version 0.3.5 (2024-10-28)
+Bug Fixes:
+- I think I messed up the JUnit template when I originally implemented it. Previously the report would start with a <testsuites> element and then start listing the <testcase>s. This release starts the report with a <testsuites> element, then a <testsuite> element, and then lists the <testcase>s. This should be the correct format.
+
 # Version 0.3.4 (2024-10-28)
 Bug Fixes:
 - It turns out the proxy would panic if the response body was empty. This has been fixed by trying to get the response body bytes and if that fails, assume there wasn't a body.
