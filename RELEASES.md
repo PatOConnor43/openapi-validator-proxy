@@ -1,3 +1,7 @@
+# Version 0.3.4 (2024-10-28)
+Bug Fixes:
+- It turns out the proxy would panic if the response body was empty. This has been fixed by trying to get the response body bytes and if that fails, assume there wasn't a body.
+
 # Version 0.3.3 (2024-10-27)
 Chores:
   - Adding documentation pages for Custom Headers, Reports, JUnit, and Contributing
