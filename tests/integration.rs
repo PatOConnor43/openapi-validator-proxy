@@ -424,3 +424,28 @@ fn delete_with_204() -> Result<(), Box<dyn std::error::Error>> {
     insta::assert_snapshot!(xml);
     Ok(())
 }
+
+#[test]
+fn empty_body_200() -> Result<(), Box<dyn std::error::Error>> {
+    let mock_server = MockServer::start();
+    let mock = mock_server.mock(|when, then| {
+        // Prepare mock response with extra field
+        when.method(httpmock::Method::DELETE).path("/pets/1");
+        then.status(200);
+    });
+    let mut rng = rand::thread_rng();
+    let port: u16 = rng.gen_range(8000..u16::MAX);
+    let _proxy_handle = ValidatorProxyServerHandle::new(&mock_server.url(""), port);
+
+    ureq::delete(format!("http://localhost:{}/pets/1", port).as_str())
+        .set("OVP-Correlation-Id", "empty_body_200")
+        .call()
+        .or_any_status()
+        .expect("Failed to make request");
+    let junit = ureq::get(format!("http://localhost:{}/_ovp/junit", port).as_str()).call()?;
+    let xml = junit.into_string()?;
+    mock.assert();
+
+    insta::assert_snapshot!(xml);
+    Ok(())
+}

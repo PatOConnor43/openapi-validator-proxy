@@ -437,7 +437,9 @@ fn validate_response(
         204 | 304 => vec![],
         _ => {
             let mut buffer: Vec<u8> = vec![];
-            response.into_reader().read_to_end(&mut buffer).unwrap();
+            // Failing to read the response body probably means a body wasn't included in the response.
+            // If that's the case, just return the empty buffer.
+            response.into_reader().read_to_end(&mut buffer).unwrap_or(0);
             buffer
         }
     };
