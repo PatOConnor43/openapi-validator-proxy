@@ -1,6 +1,6 @@
 [package]
 name = "openapi-validator-proxy"
-version = "0.3.4"
+version = "0.3.5"
 edition = "2021"
 repository = "https://github.com/PatOConnor43/openapi-validator-proxy"
 description = "A CLI application to validate OpenAPI specification requests and responses."
