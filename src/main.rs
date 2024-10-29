@@ -433,9 +433,19 @@ fn validate_response(
         let value = HeaderValue::from_str(value).unwrap_or(HeaderValue::from_static(""));
         headers.insert(key, value);
     }
-    let body = response.into_string().unwrap();
+    let body_bytes = match status {
+        204 | 304 => vec![],
+        _ => {
+            let mut buffer: Vec<u8> = vec![];
+            // Failing to read the response body probably means a body wasn't included in the response.
+            // If that's the case, just return the empty buffer.
+            response.into_reader().read_to_end(&mut buffer).unwrap_or(0);
+            buffer
+        }
+    };
+
     let mut validated = ValidatedResponse {
-        body: body.into_bytes(),
+        body: body_bytes,
         failures,
         headers: headers.clone(),
         method: method.clone(),

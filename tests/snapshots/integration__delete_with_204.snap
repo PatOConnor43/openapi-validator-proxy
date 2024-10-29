@@ -1,0 +1,16 @@
+---
+source: tests/integration.rs
+expression: xml
+---
+<testsuites tests="1" failures="0">
+    <testcase name="delete_with_204" time="0.00">
+        <properties>
+            <property name="path" value="/pets/1"></property>
+            <property name="method" value="DELETE"></property>
+            <property name="pathParameter-petId" value="1"></property>
+            <property name="statusCode" value="204"></property>
+            <property name="operationId" value="deletePet"></property>
+            <property name="responseContentType" value=""></property>
+        </properties>
+    </testcase>
+</testsuites>
