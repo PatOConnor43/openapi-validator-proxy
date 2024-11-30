@@ -1,3 +1,7 @@
+# Version 0.3.6 (2024-11-30)
+Bug Fixes:
+- Using the properties tag within a testcase doesn't seem to be well supported. Instead I've opted to use <system-out> instead to communicate what the properties for a testcase are. I believe this should be more widely supported.
+
 # Version 0.3.5 (2024-10-28)
 Bug Fixes:
 - I think I messed up the JUnit template when I originally implemented it. Previously the report would start with a <testsuites> element and then start listing the <testcase>s. This release starts the report with a <testsuites> element, then a <testsuite> element, and then lists the <testcase>s. This should be the correct format.
