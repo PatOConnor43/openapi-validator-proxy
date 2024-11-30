@@ -5,14 +5,14 @@ expression: xml
 <testsuites>
     <testsuite name="testsuite" tests="1" failures="1">
         <testcase name="failed_validation_unexpected_property" time="0.00">
-            <properties>
-                <property name="path" value="/pets/1"></property>
-                <property name="method" value="GET"></property>
-                <property name="pathParameter-petId" value="1"></property>
-                <property name="statusCode" value="200"></property>
-                <property name="operationId" value="showPetById"></property>
-                <property name="responseContentType" value="application/json"></property>
-            </properties>
+            <system-out>
+[[PROPERTY|path=/pets/1]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|pathParameter-petId=1]]
+[[PROPERTY|statusCode=200]]
+[[PROPERTY|operationId=showPetById]]
+[[PROPERTY|responseContentType=application/json]]
+            </system-out>
             <failure type="FailedValidation.UnexpectedProperty" message="error">Unexpected property at /extra, value "field"</failure>
         </testcase>
     </testsuite>

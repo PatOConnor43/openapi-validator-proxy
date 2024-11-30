@@ -5,12 +5,12 @@ expression: xml
 <testsuites>
     <testsuite name="testsuite" tests="1" failures="1">
         <testcase name="missing_content_type_header" time="0.00">
-            <properties>
-                <property name="path" value="/pets"></property>
-                <property name="method" value="GET"></property>
-                <property name="statusCode" value="200"></property>
-                <property name="operationId" value="listPets"></property>
-            </properties>
+            <system-out>
+[[PROPERTY|path=/pets]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|statusCode=200]]
+[[PROPERTY|operationId=listPets]]
+            </system-out>
             <failure type="MissingContentTypeHeader" message="error">Response did not include a Content-Type header</failure>
         </testcase>
     </testsuite>
