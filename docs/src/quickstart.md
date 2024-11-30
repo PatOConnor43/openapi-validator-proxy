@@ -33,13 +33,13 @@ Which should return a JUnit report that resembles the following:
 ```xml
 <testsuites tests="1" failures="0">
     <testcase name="e73ac0a9-a28e-446c-aa21-aaad827a489d" time="0.26">
-        <properties>
-            <property name="path" value="/pets"></property>
-            <property name="method" value="GET"></property>
-            <property name="statusCode" value="200"></property>
-            <property name="operationId" value="getPets"></property>
-            <property name="responseContentType" value="application/json"></property>
-        </properties>
+        <system-out>
+[[PROPERTY|path=/pets]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|statusCode=200]]
+[[PROPERTY|operationId=getPets]]
+[[PROPERTY|responseContentType=application/json]]
+        </system-out>
     </testcase>
 </testsuites>
 ```

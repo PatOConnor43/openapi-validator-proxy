@@ -5,13 +5,13 @@ expression: xml
 <testsuites>
     <testsuite name="testsuite" tests="1" failures="1">
         <testcase name="missing_schema_definition" time="0.00">
-            <properties>
-                <property name="path" value="/missing_pets_schema"></property>
-                <property name="method" value="GET"></property>
-                <property name="statusCode" value="200"></property>
-                <property name="operationId" value="missingPetsSchema"></property>
-                <property name="responseContentType" value="application/json"></property>
-            </properties>
+            <system-out>
+[[PROPERTY|path=/missing_pets_schema]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|statusCode=200]]
+[[PROPERTY|operationId=missingPetsSchema]]
+[[PROPERTY|responseContentType=application/json]]
+            </system-out>
             <failure type="MissingSchemaDefinition" message="error">Could not find schema defined inline or as a #/components/schemas/ reference</failure>
         </testcase>
     </testsuite>

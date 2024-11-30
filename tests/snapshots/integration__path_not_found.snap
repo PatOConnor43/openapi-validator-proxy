@@ -5,11 +5,11 @@ expression: xml
 <testsuites>
     <testsuite name="testsuite" tests="1" failures="1">
         <testcase name="path_not_found" time="0.00">
-            <properties>
-                <property name="path" value="/pet"></property>
-                <property name="method" value="GET"></property>
-                <property name="statusCode" value="404"></property>
-            </properties>
+            <system-out>
+[[PROPERTY|path=/pet]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|statusCode=404]]
+            </system-out>
             <failure type="PathNotFound" message="error">Path not found</failure>
         </testcase>
     </testsuite>
