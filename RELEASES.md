@@ -1,3 +1,7 @@
+# Version 0.4.1 (2024-12-01)
+Bug Fixes:
+- Properties were not showing in Failure messages. This was fixed by duplicating the properties in the failure message.
+
 # Version 0.4.0 (2024-12-01)
 New Features:
 - Updated testcase names to include "{method} {path} {correlationId}" to make it easier to see what a testcase is for at a glance.
