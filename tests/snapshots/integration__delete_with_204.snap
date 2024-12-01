@@ -13,13 +13,6 @@ expression: xml
 [[PROPERTY|pathParameter-petId=1]]
 [[PROPERTY|responseContentType=]]
 [[PROPERTY|statusCode=204]]
-correlationId=delete_with_204
-method=DELETE
-operationId=deletePet
-path=/pets/1
-pathParameter-petId=1
-responseContentType=
-statusCode=204
             </system-out>
         </testcase>
     </testsuite>

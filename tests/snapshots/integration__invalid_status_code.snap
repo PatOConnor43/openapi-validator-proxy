@@ -11,13 +11,17 @@ expression: xml
 [[PROPERTY|operationId=listPets]]
 [[PROPERTY|path=/pets]]
 [[PROPERTY|statusCode=600]]
-correlationId=invalid_status_code
-method=GET
-operationId=listPets
-path=/pets
-statusCode=600
             </system-out>
-            <failure type="InvalidStatusCode" message="error">Response not found for status code</failure>
+            <failure type="InvalidStatusCode" message="failure">
+[[PROPERTY|correlationId=invalid_status_code]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=listPets]]
+[[PROPERTY|path=/pets]]
+[[PROPERTY|statusCode=600]]
+
+Failure message:
+Response not found for status code
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>

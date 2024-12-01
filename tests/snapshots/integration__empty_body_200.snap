@@ -12,14 +12,18 @@ expression: xml
 [[PROPERTY|path=/pets/1]]
 [[PROPERTY|pathParameter-petId=1]]
 [[PROPERTY|statusCode=200]]
-correlationId=empty_body_200
-method=DELETE
-operationId=deletePet
-path=/pets/1
-pathParameter-petId=1
-statusCode=200
             </system-out>
-            <failure type="InvalidStatusCode" message="error">Response not found for status code</failure>
+            <failure type="InvalidStatusCode" message="failure">
+[[PROPERTY|correlationId=empty_body_200]]
+[[PROPERTY|method=DELETE]]
+[[PROPERTY|operationId=deletePet]]
+[[PROPERTY|path=/pets/1]]
+[[PROPERTY|pathParameter-petId=1]]
+[[PROPERTY|statusCode=200]]
+
+Failure message:
+Response not found for status code
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>

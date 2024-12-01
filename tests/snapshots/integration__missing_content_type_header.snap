@@ -11,13 +11,17 @@ expression: xml
 [[PROPERTY|operationId=listPets]]
 [[PROPERTY|path=/pets]]
 [[PROPERTY|statusCode=200]]
-correlationId=missing_content_type_header
-method=GET
-operationId=listPets
-path=/pets
-statusCode=200
             </system-out>
-            <failure type="MissingContentTypeHeader" message="error">Response did not include a Content-Type header</failure>
+            <failure type="MissingContentTypeHeader" message="failure">
+[[PROPERTY|correlationId=missing_content_type_header]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=listPets]]
+[[PROPERTY|path=/pets]]
+[[PROPERTY|statusCode=200]]
+
+Failure message:
+Response did not include a Content-Type header
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>

@@ -13,15 +13,19 @@ expression: xml
 [[PROPERTY|pathParameter-petId=1]]
 [[PROPERTY|responseContentType=]]
 [[PROPERTY|statusCode=202]]
-correlationId=mismatch_non_empty_body
-method=GET
-operationId=showPetById
-path=/pets/1
-pathParameter-petId=1
-responseContentType=
-statusCode=202
             </system-out>
-            <failure type="MismatchNonEmptyBody" message="error">Receieved response body when empty body is expected</failure>
+            <failure type="MismatchNonEmptyBody" message="failure">
+[[PROPERTY|correlationId=mismatch_non_empty_body]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=showPetById]]
+[[PROPERTY|path=/pets/1]]
+[[PROPERTY|pathParameter-petId=1]]
+[[PROPERTY|responseContentType=]]
+[[PROPERTY|statusCode=202]]
+
+Failure message:
+Receieved response body when empty body is expected
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>

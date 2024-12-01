@@ -13,15 +13,19 @@ expression: xml
 [[PROPERTY|pathParameter-petId=1]]
 [[PROPERTY|responseContentType=application/json]]
 [[PROPERTY|statusCode=200]]
-correlationId=failed_validation_unexpected_property
-method=GET
-operationId=showPetById
-path=/pets/1
-pathParameter-petId=1
-responseContentType=application/json
-statusCode=200
             </system-out>
-            <failure type="FailedValidation.UnexpectedProperty" message="error">Unexpected property at /extra, value "field"</failure>
+            <failure type="FailedValidation.UnexpectedProperty" message="failure">
+[[PROPERTY|correlationId=failed_validation_unexpected_property]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=showPetById]]
+[[PROPERTY|path=/pets/1]]
+[[PROPERTY|pathParameter-petId=1]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
+
+Failure message:
+Unexpected property at /extra, value "field"
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>

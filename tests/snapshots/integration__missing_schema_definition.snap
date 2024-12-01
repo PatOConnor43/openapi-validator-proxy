@@ -12,14 +12,18 @@ expression: xml
 [[PROPERTY|path=/missing_pets_schema]]
 [[PROPERTY|responseContentType=application/json]]
 [[PROPERTY|statusCode=200]]
-correlationId=missing_schema_definition
-method=GET
-operationId=missingPetsSchema
-path=/missing_pets_schema
-responseContentType=application/json
-statusCode=200
             </system-out>
-            <failure type="MissingSchemaDefinition" message="error">Could not find schema defined inline or as a #/components/schemas/ reference</failure>
+            <failure type="MissingSchemaDefinition" message="failure">
+[[PROPERTY|correlationId=missing_schema_definition]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=missingPetsSchema]]
+[[PROPERTY|path=/missing_pets_schema]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
+
+Failure message:
+Could not find schema defined inline or as a #/components/schemas/ reference
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>
