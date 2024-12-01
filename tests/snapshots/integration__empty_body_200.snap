@@ -3,14 +3,21 @@ source: tests/integration.rs
 expression: xml
 ---
 <testsuites>
-    <testsuite name="testsuite" tests="1" failures="1">
-        <testcase name="empty_body_200" time="0.00">
+    <testsuite name="openapi-validator-proxy" tests="1" failures="1">
+        <testcase name="DELETE /pets/1 empty_body_200" time="0.00">
             <system-out>
-[[PROPERTY|path=/pets/1]]
+[[PROPERTY|correlationId=empty_body_200]]
 [[PROPERTY|method=DELETE]]
+[[PROPERTY|operationId=deletePet]]
+[[PROPERTY|path=/pets/1]]
 [[PROPERTY|pathParameter-petId=1]]
 [[PROPERTY|statusCode=200]]
-[[PROPERTY|operationId=deletePet]]
+correlationId=empty_body_200
+method=DELETE
+operationId=deletePet
+path=/pets/1
+pathParameter-petId=1
+statusCode=200
             </system-out>
             <failure type="InvalidStatusCode" message="error">Response not found for status code</failure>
         </testcase>

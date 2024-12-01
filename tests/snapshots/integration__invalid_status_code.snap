@@ -3,13 +3,19 @@ source: tests/integration.rs
 expression: xml
 ---
 <testsuites>
-    <testsuite name="testsuite" tests="1" failures="1">
-        <testcase name="invalid_status_code" time="0.00">
+    <testsuite name="openapi-validator-proxy" tests="1" failures="1">
+        <testcase name="GET /pets invalid_status_code" time="0.00">
             <system-out>
-[[PROPERTY|path=/pets]]
+[[PROPERTY|correlationId=invalid_status_code]]
 [[PROPERTY|method=GET]]
-[[PROPERTY|statusCode=600]]
 [[PROPERTY|operationId=listPets]]
+[[PROPERTY|path=/pets]]
+[[PROPERTY|statusCode=600]]
+correlationId=invalid_status_code
+method=GET
+operationId=listPets
+path=/pets
+statusCode=600
             </system-out>
             <failure type="InvalidStatusCode" message="error">Response not found for status code</failure>
         </testcase>

@@ -77,7 +77,7 @@ struct Testcase {
     time: String,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, PartialOrd, Ord)]
 struct TestcaseProperty {
     name: String,
     value: String,
@@ -375,6 +375,11 @@ async fn inner_handler(
         }
     }
 
+    properties.push(TestcaseProperty {
+        name: "correlationId".to_string(),
+        value: correlation_id.to_string(),
+    });
+    let testcase_name = format!("{} {} {}", method, path_and_query, correlation_id);
     let body = axum::body::to_bytes(request.into_body(), usize::MAX)
         .await
         .unwrap();
@@ -385,9 +390,10 @@ async fn inner_handler(
     let mut validated_response = validate_response(response, method, &spec, wayfinder_path);
     failures.append(&mut validated_response.failures);
     properties.append(&mut validated_response.properties);
+    properties.sort();
     let mut cases = testcases.lock().await;
     cases.push(Testcase {
-        name: correlation_id.to_string(),
+        name: testcase_name,
         failures,
         properties,
         time: format!("{:.2}", duration.as_secs_f64()),
