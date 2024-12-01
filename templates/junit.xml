@@ -1,8 +1,9 @@
 <testsuites>
-    <testsuite name="testsuite" tests="{{testcases.len()}}" failures="{{failed_testcases}}">{% for case in testcases %}
+    <testsuite name="openapi-validator-proxy" tests="{{testcases.len()}}" failures="{{failed_testcases}}">{% for case in testcases %}
         <testcase name="{{case.name}}" time="{{case.time}}">
             <system-out>{% for prop in case.properties %}
-[[PROPERTY|{{prop.name}}={{prop.value}}]]{% endfor %}
+[[PROPERTY|{{prop.name}}={{prop.value}}]]{% endfor %}{% for prop in case.properties %}
+{{prop.name}}={{prop.value}}{% endfor %}
             </system-out>{% for failure in case.failures %}
             <failure type="{{failure.type}}" message="error">{{ failure.text|safe }}</failure>{% endfor %}
         </testcase>{% endfor %}

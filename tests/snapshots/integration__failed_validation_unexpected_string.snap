@@ -3,15 +3,23 @@ source: tests/integration.rs
 expression: xml
 ---
 <testsuites>
-    <testsuite name="testsuite" tests="1" failures="1">
-        <testcase name="failed_validation_unexpected_string" time="0.00">
+    <testsuite name="openapi-validator-proxy" tests="1" failures="1">
+        <testcase name="GET /pets/1 failed_validation_unexpected_string" time="0.00">
             <system-out>
-[[PROPERTY|path=/pets/1]]
+[[PROPERTY|correlationId=failed_validation_unexpected_string]]
 [[PROPERTY|method=GET]]
-[[PROPERTY|pathParameter-petId=1]]
-[[PROPERTY|statusCode=200]]
 [[PROPERTY|operationId=showPetById]]
+[[PROPERTY|path=/pets/1]]
+[[PROPERTY|pathParameter-petId=1]]
 [[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
+correlationId=failed_validation_unexpected_string
+method=GET
+operationId=showPetById
+path=/pets/1
+pathParameter-petId=1
+responseContentType=application/json
+statusCode=200
             </system-out>
             <failure type="FailedValidation.UnexpectedString" message="error">Received unexpected string at /id/</failure>
         </testcase>

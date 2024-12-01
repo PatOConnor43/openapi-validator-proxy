@@ -3,15 +3,23 @@ source: tests/integration.rs
 expression: xml
 ---
 <testsuites>
-    <testsuite name="testsuite" tests="1" failures="0">
-        <testcase name="delete_with_204" time="0.00">
+    <testsuite name="openapi-validator-proxy" tests="1" failures="0">
+        <testcase name="DELETE /pets/1 delete_with_204" time="0.00">
             <system-out>
-[[PROPERTY|path=/pets/1]]
+[[PROPERTY|correlationId=delete_with_204]]
 [[PROPERTY|method=DELETE]]
-[[PROPERTY|pathParameter-petId=1]]
-[[PROPERTY|statusCode=204]]
 [[PROPERTY|operationId=deletePet]]
+[[PROPERTY|path=/pets/1]]
+[[PROPERTY|pathParameter-petId=1]]
 [[PROPERTY|responseContentType=]]
+[[PROPERTY|statusCode=204]]
+correlationId=delete_with_204
+method=DELETE
+operationId=deletePet
+path=/pets/1
+pathParameter-petId=1
+responseContentType=
+statusCode=204
             </system-out>
         </testcase>
     </testsuite>

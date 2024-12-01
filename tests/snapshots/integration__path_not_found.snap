@@ -3,12 +3,17 @@ source: tests/integration.rs
 expression: xml
 ---
 <testsuites>
-    <testsuite name="testsuite" tests="1" failures="1">
-        <testcase name="path_not_found" time="0.00">
+    <testsuite name="openapi-validator-proxy" tests="1" failures="1">
+        <testcase name="GET /pet path_not_found" time="0.00">
             <system-out>
-[[PROPERTY|path=/pet]]
+[[PROPERTY|correlationId=path_not_found]]
 [[PROPERTY|method=GET]]
+[[PROPERTY|path=/pet]]
 [[PROPERTY|statusCode=404]]
+correlationId=path_not_found
+method=GET
+path=/pet
+statusCode=404
             </system-out>
             <failure type="PathNotFound" message="error">Path not found</failure>
         </testcase>

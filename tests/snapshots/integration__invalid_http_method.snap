@@ -3,12 +3,17 @@ source: tests/integration.rs
 expression: xml
 ---
 <testsuites>
-    <testsuite name="testsuite" tests="1" failures="1">
-        <testcase name="invalid_http_method" time="0.00">
+    <testsuite name="openapi-validator-proxy" tests="1" failures="1">
+        <testcase name="DELETE /pets invalid_http_method" time="0.00">
             <system-out>
-[[PROPERTY|path=/pets]]
+[[PROPERTY|correlationId=invalid_http_method]]
 [[PROPERTY|method=DELETE]]
+[[PROPERTY|path=/pets]]
 [[PROPERTY|statusCode=405]]
+correlationId=invalid_http_method
+method=DELETE
+path=/pets
+statusCode=405
             </system-out>
             <failure type="InvalidHTTPMethod" message="error">Invalid HTTP method</failure>
         </testcase>
