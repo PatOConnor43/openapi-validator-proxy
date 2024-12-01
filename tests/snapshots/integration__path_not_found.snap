@@ -10,12 +10,16 @@ expression: xml
 [[PROPERTY|method=GET]]
 [[PROPERTY|path=/pet]]
 [[PROPERTY|statusCode=404]]
-correlationId=path_not_found
-method=GET
-path=/pet
-statusCode=404
             </system-out>
-            <failure type="PathNotFound" message="error">Path not found</failure>
+            <failure type="PathNotFound" message="failure">
+[[PROPERTY|correlationId=path_not_found]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|path=/pet]]
+[[PROPERTY|statusCode=404]]
+
+Failure message:
+Path not found
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>

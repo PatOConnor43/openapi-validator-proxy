@@ -10,12 +10,16 @@ expression: xml
 [[PROPERTY|method=DELETE]]
 [[PROPERTY|path=/pets]]
 [[PROPERTY|statusCode=405]]
-correlationId=invalid_http_method
-method=DELETE
-path=/pets
-statusCode=405
             </system-out>
-            <failure type="InvalidHTTPMethod" message="error">Invalid HTTP method</failure>
+            <failure type="InvalidHTTPMethod" message="failure">
+[[PROPERTY|correlationId=invalid_http_method]]
+[[PROPERTY|method=DELETE]]
+[[PROPERTY|path=/pets]]
+[[PROPERTY|statusCode=405]]
+
+Failure message:
+Invalid HTTP method
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>

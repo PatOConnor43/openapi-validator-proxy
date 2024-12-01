@@ -12,14 +12,18 @@ expression: xml
 [[PROPERTY|path=/pets]]
 [[PROPERTY|responseContentType=wrong]]
 [[PROPERTY|statusCode=200]]
-correlationId=mismatched_content_type_header
-method=GET
-operationId=listPets
-path=/pets
-responseContentType=wrong
-statusCode=200
             </system-out>
-            <failure type="MismatchedContentTypeHeader" message="error">Spec does not contain matching response for Content-Type: wrong</failure>
+            <failure type="MismatchedContentTypeHeader" message="failure">
+[[PROPERTY|correlationId=mismatched_content_type_header]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=listPets]]
+[[PROPERTY|path=/pets]]
+[[PROPERTY|responseContentType=wrong]]
+[[PROPERTY|statusCode=200]]
+
+Failure message:
+Spec does not contain matching response for Content-Type: wrong
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>

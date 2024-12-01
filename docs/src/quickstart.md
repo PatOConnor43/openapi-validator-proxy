@@ -40,12 +40,6 @@ Which should return a JUnit report that resembles the following:
 [[PROPERTY|path=/pets]]
 [[PROPERTY|responseContentType=application/json]]
 [[PROPERTY|statusCode=200]]
-correlationId=e73ac0a9-a28e-446c-aa21-aaad827a489d
-method=GET
-operationId=getPets
-path=/pets
-responseContentType=application/json
-statusCode=200
         </system-out>
     </testcase>
 </testsuites>
