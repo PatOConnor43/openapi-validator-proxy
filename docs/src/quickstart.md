@@ -34,11 +34,18 @@ Which should return a JUnit report that resembles the following:
 <testsuites tests="1" failures="0">
     <testcase name="e73ac0a9-a28e-446c-aa21-aaad827a489d" time="0.26">
         <system-out>
-[[PROPERTY|path=/pets]]
+[[PROPERTY|correlationId=e73ac0a9-a28e-446c-aa21-aaad827a489d]]
 [[PROPERTY|method=GET]]
-[[PROPERTY|statusCode=200]]
 [[PROPERTY|operationId=getPets]]
+[[PROPERTY|path=/pets]]
 [[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
+correlationId=e73ac0a9-a28e-446c-aa21-aaad827a489d
+method=GET
+operationId=getPets
+path=/pets
+responseContentType=application/json
+statusCode=200
         </system-out>
     </testcase>
 </testsuites>
