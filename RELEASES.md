@@ -1,3 +1,9 @@
+# Version 0.4.0 (2024-12-01)
+New Features:
+- Updated testcase names to include "{method} {path} {correlationId}" to make it easier to see what a testcase is for at a glance.
+- Added properties to the <system-out> tag in the JUnit report to make it easier for people to see what the properties for a testcase are.
+- Added correlationId to the properties.
+
 # Version 0.3.6 (2024-11-30)
 Bug Fixes:
 - Using the properties tag within a testcase doesn't seem to be well supported. Instead I've opted to use <system-out> instead to communicate what the properties for a testcase are. I believe this should be more widely supported.
