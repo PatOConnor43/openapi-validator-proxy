@@ -53,7 +53,11 @@ paths:
         required: true
       responses:
         '201':
-          description: Null response
+          description: A created Pet
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
         default:
           description: unexpected error
           content:
