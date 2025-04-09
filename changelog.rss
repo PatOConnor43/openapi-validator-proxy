@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>openapi-validator-proxy Changelog</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog</link><description>Changelog information for openapi-validator-proxy</description><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><atom:link href="http://127.0.0.1:7979/openapi-validator-proxy/changelog.rss" rel="self"/><item><title>Version 0.5.0 (2025-04-09)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.5.0</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.5.0</guid><content:encoded><![CDATA[<p>New Features:</p>
+<ul>
+<li>Added support for Request Validation. For now, this only includes request body validation and uses the exact same logic as response body validation.</li>
+<li>The FailureType enum has also been updated to include many Request specific types. Check the docs site for the full list.</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.4.1 (2024-12-01)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.4.1</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.4.1</guid><content:encoded><![CDATA[<p>Bug Fixes:</p>
+<ul>
+<li>Properties were not showing in Failure messages. This was fixed by duplicating the properties in the failure message.</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.4.0 (2024-12-01)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.4.0</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.4.0</guid><content:encoded><![CDATA[<p>New Features:</p>
+<ul>
+<li>Updated testcase names to include "{method} {path} {correlationId}" to make it easier to see what a testcase is for at a glance.</li>
+<li>Added properties to the  tag in the JUnit report to make it easier for people to see what the properties for a testcase are.</li>
+<li>Added correlationId to the properties.</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.3.6 (2024-11-30)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.6</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.6</guid><content:encoded><![CDATA[<p>Bug Fixes:</p>
+<ul>
+<li>Using the properties tag within a testcase doesn't seem to be well supported. Instead I've opted to use  instead to communicate what the properties for a testcase are. I believe this should be more widely supported.</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.3.5 (2024-10-28)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.5</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.5</guid><content:encoded><![CDATA[<p>Bug Fixes:</p>
+<ul>
+<li>I think I messed up the JUnit template when I originally implemented it. Previously the report would start with a  element and then start listing the s. This release starts the report with a  element, then a  element, and then lists the s. This should be the correct format.</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.3.4 (2024-10-28)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.4</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.4</guid><content:encoded><![CDATA[<p>Bug Fixes:</p>
+<ul>
+<li>It turns out the proxy would panic if the response body was empty. This has been fixed by trying to get the response body bytes and if that fails, assume there wasn't a body.</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.3.3 (2024-10-27)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.3</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.3</guid><content:encoded><![CDATA[<p>Chores:</p>
+<ul>
+<li>Adding documentation pages for Custom Headers, Reports, JUnit, and Contributing
+Bug Fixes:</li>
+<li>Depending on if you ended the upstream suffix with a <code>/</code> or not, the proxy would not correctly match the operation in the OpenAPI file. This has been fixed so that the proxy will correctly match the operation in the OpenAPI file regardless of an ending <code>/</code> on the upstream URL.</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.3.2 (2024-10-27)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.2</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.2</guid><content:encoded><![CDATA[<p>Bug Fixes:</p>
+<ul>
+<li>Entries in the Validation Failures page were missing because the script used to generate the entries required rust nightly. The site build now uses the nightly toolchain to accomodate this.</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.3.1 (2024-10-27)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.1</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.1</guid><content:encoded><![CDATA[<p>Chores:</p>
+<ul>
+<li>Fixing the GitHub pages site. I was looking at the wrong default branch.</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.3.0 (2024-10-27)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.0</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.3.0</guid><content:encoded><![CDATA[<p>Chores:</p>
+<ul>
+<li>Trying to put together a GitHub pages site for the project</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.2.0 (2024-10-25)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.2.0</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.2.0</guid><content:encoded><![CDATA[<p>New Features:</p>
+<ul>
+<li>Support for suffixed upstream url
+<ul>
+<li>This allows the proxy to work with servers that are mounted at a path other than the root. For example, if your server is mounted at <code>/api/v1</code> you can run <code>openapi-validator-proxy proxy petstore.yaml http://localhost:8080/api/v1</code>. Make a GET request to <code>http://localhost:3000/api/v1/pets</code> and the proxy will forward the request to <code>http://localhost:8080/api/v1/pets</code>. Validation will match against the <code>GET /pets</code> operation in the OpenAPI file.</li>
+</ul>
+</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.1.2 (2024-10-25)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.1.2</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.1.2</guid><content:encoded><![CDATA[<p>New Features:</p>
+<ul>
+<li>Add --version flag to print the version of the binary</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.1.1 (2024-10-21)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.1.1</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.1.1</guid><content:encoded><![CDATA[<p>Chores:</p>
+<ul>
+<li>Updated README to mention looking for binaries in the releases tab</li>
+<li>Added integration tests</li>
+<li>Add CI workflow to run tests/linting/formatting</li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.1.0 (2024-10-21)</title><link>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.1.0</link><category domain="https://github.com/PatOConnor43/openapi-validator-proxy">openapi-validator-proxy Changelog</category><guid>http://127.0.0.1:7979/openapi-validator-proxy/changelog/v0.1.0</guid><content:encoded><![CDATA[<p>Initial release!</p>
+<p>The <code>proxy</code> command sort of works to validate requests. This includes functionality that validates:</p>
+<ul>
+<li>path</li>
+<li>HTTP method</li>
+<li>object response bodies</li>
+<li>allOf response properties</li>
+<li>string/boolean/number/array response properties</li>
+</ul>
+<p>Results are captured in a Junit report which can be found at localhost:3000/_ovp/junit.</p>
+<p>The following errors are also captures in the Junit report:</p>
+<ul>
+<li>PathNotFound,</li>
+<li>InvalidHTTPMethod,</li>
+<li>InvalidStatusCode,</li>
+<li>MissingResponseDefinition,</li>
+<li>MissingContentTypeHeader,</li>
+<li>MismatchedContentTypeHeader,</li>
+<li>MismatchNonEmptyBody,</li>
+<li>MissingSchemaDefinition,</li>
+<li>FailedJSONDeserialization,</li>
+<li>FailedValidationUnexpectedNull,</li>
+<li>FailedValidationUnexpectedBoolean,</li>
+<li>FailedValidationUnexpectedNumber,</li>
+<li>FailedValidationUnexpectedString,</li>
+<li>FailedValidationUnexpectedProperty,</li>
+<li>FailedValidationUnsupportedSchemaKind,</li>
+</ul>
+]]></content:encoded></item></channel></rss>

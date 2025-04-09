@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js oranda-dark">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="oranda-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "oranda-dark" : "oranda-dark";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('orandamdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('orandamdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('orandamdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('oranda-dark')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="install.html"><strong aria-hidden="true">2.</strong> Install</a></li><li class="chapter-item expanded "><a href="quickstart.html"><strong aria-hidden="true">3.</strong> Quickstart</a></li><li class="chapter-item expanded "><a href="validation_failures.html"><strong aria-hidden="true">4.</strong> Validation Failures</a></li><li class="chapter-item expanded "><a href="custom_headers.html"><strong aria-hidden="true">5.</strong> Custom Headers</a></li><li class="chapter-item expanded "><a href="reports.html"><strong aria-hidden="true">6.</strong> Reports</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="report_junit.html"><strong aria-hidden="true">6.1.</strong> JUnit</a></li></ol></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">7.</strong> Contributing</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="oranda-dark">Axo Dark</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="oranda-light">Axo Light</button></li>
+
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>This project is an attempt at providing API Validation for any service that uses an OpenAPI specification. Specifically, this project is designed to proxy requests and responses and verify that they conform to your API specification.</p>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How it works</a></h2>
+<p>openapi-validator-proxy works by creating a server that listens for requests and then sends them to an upstream server. For each request it receives, it validates the request and response and then saves the result as a testcase. Each testcase includes information about the path, method, parameters, and response code. If the response fails validation, the testcase will include an error type and message that describes the failure.</p>
+<h2 id="high-level-goals"><a class="header" href="#high-level-goals">High Level Goals</a></h2>
+<ul>
+<li>API Validation MUST be agnostic to the clients and servers.</li>
+<li>API Validation MUST NOT interfere with existing workflows for building APIs.</li>
+<li>API Validation SHOULD be easy!
+<ul>
+<li>It MUST be "one thing". You run one extra command.</li>
+<li>It MUST be invoked locally the same way as in CI.</li>
+</ul>
+</li>
+</ul>
+<p>This tool accomplishes these goals by providing the following:</p>
+<ul>
+<li>It is implemented as a proxy that does not interfere with the request or response. This makes the tool usable by any client or server combination.</li>
+<li>Any tests that you are currently running can be run through this proxy, effectively gaining API validation for free.</li>
+<li>The proxy is built as a single binary compiled for your platform. This makes it easy to run locally or in CI.</li>
+<li>The proxy generates a report that can be used as a CI artifact.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="install"><a class="header" href="#install">Install</a></h1>
+<h2 id="github-releases"><a class="header" href="#github-releases">GitHub Releases</a></h2>
+<p>Check the latest release on the <a href="https://github.com/PatOConnor43/openapi-validator-proxy/releases/latest">releases page</a>!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="quickstart"><a class="header" href="#quickstart">Quickstart</a></h1>
+<pre><code>A CLI application to validate OpenAPI specification requests and responses.
+
+Usage: openapi-validator-proxy &lt;COMMAND&gt;
+
+Commands:
+  proxy  Starts the proxy server with the given file as input
+  help   Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help     Print help
+  -V, --version  Print version
+</code></pre>
+<p>The main subcommand is the <code>proxy</code> command. This starts the proxy server that will validate requests and responses against the OpenAPI specification. The command takes two arguments: the path to the OpenAPI file and the URL of the upstream server. Here's an example:</p>
+<pre><code>openapi-validator-proxy proxy petstore.yaml http://localhost:8080
+</code></pre>
+<p>This will start the proxy server and read the OpenAPI file <code>petstore.yaml</code>. It will then proxy requests to <code>http://localhost:8080</code>. If you have a server mounted at a different path, you can include that in the URL. For example, if your server is mounted at <code>/api/v1</code> you can run:</p>
+<pre><code>openapi-validator-proxy proxy petstore.yaml http://localhost:8080/api/v1
+</code></pre>
+<p>Then make a GET request to the pets collection:</p>
+<pre><code class="language-http">GET http://localhost:3000/api/v1/pets
+</code></pre>
+<p>You can see the testcase created for this request by making an additional request to the JUnit report endpoint:</p>
+<pre><code class="language-http">GET http://localhost:3000/_ovp/junit
+</code></pre>
+<p>Which should return a JUnit report that resembles the following:</p>
+<pre><code class="language-xml">&lt;testsuites tests="1" failures="0"&gt;
+    &lt;testcase name="e73ac0a9-a28e-446c-aa21-aaad827a489d" time="0.26"&gt;
+        &lt;system-out&gt;
+[[PROPERTY|correlationId=e73ac0a9-a28e-446c-aa21-aaad827a489d]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=getPets]]
+[[PROPERTY|path=/pets]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
+        &lt;/system-out&gt;
+    &lt;/testcase&gt;
+&lt;/testsuites&gt;
+</code></pre>
+<p>The JUnit report is currently the only report but others will be added in the future.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="validation-failures"><a class="header" href="#validation-failures">Validation Failures</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>name</th><th>docs</th></tr></thead><tbody>
+<tr><td>InvalidHTTPMethod</td><td>The HTTP method used in the request is not one of the expected values: DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, or TRACE.</td></tr>
+<tr><td>InvalidStatusCode</td><td>The status code returned by the upstream server does not have a matching response in the OpenAPI spec.</td></tr>
+<tr><td>MissingResponseDefinition</td><td>The OpenAPI spec contained a missing inline response definition or referenced a response that did not exist.</td></tr>
+<tr><td>MissingSchemaDefinition</td><td>The requested path was not found in the OpenAPI spec. This response was not validated and may be missing relevant testcase properties.The OpenAPI spec contained a missing inline schema definition or referenced a schema that did not exist.</td></tr>
+<tr><td>PathNotFound</td><td>The requested path was not found in the OpenAPI spec.</td></tr>
+<tr><td>RequestFailedJSONDeserialization</td><td>The request body could not be deserialized as JSON.</td></tr>
+<tr><td>RequestFailedValidationUnexpectedBoolean</td><td>The request body contained a boolean value when the OpenAPI spec expected a different type.</td></tr>
+<tr><td>RequestFailedValidationUnexpectedNull</td><td>The request body contains a null value when the OpenAPI spec did not allow null values.</td></tr>
+<tr><td>RequestFailedValidationUnexpectedNumber</td><td>The request body contained a number value when the OpenAPI spec expected a different type.</td></tr>
+<tr><td>RequestFailedValidationUnexpectedProperty</td><td>The request body contained a property that was not defined in the OpenAPI spec.</td></tr>
+<tr><td>RequestFailedValidationUnexpectedString</td><td>The request body contained a string value when the OpenAPI spec expected a different type.</td></tr>
+<tr><td>RequestFailedValidationUnsupportedSchemaKind</td><td>The OpenAPI spec contained a schema with an unsupported kind, such as anyOf, oneOf, or not.</td></tr>
+<tr><td>RequestMismatchNonEmptyBody</td><td>The client included a non-empty body when the OpenAPI spec expected an empty body.</td></tr>
+<tr><td>RequestMismatchedContentTypeHeader</td><td>The client included a Content-Type header in the request that does not match any content types defined in the OpenAPI spec.</td></tr>
+<tr><td>RequestMissingContentTypeHeader</td><td>The client did not include a Content-Type header in the request. This is only an issue when the response body is not empty.</td></tr>
+<tr><td>ResponseFailedJSONDeserialization</td><td>The response body could not be deserialized as JSON.</td></tr>
+<tr><td>ResponseFailedValidationUnexpectedBoolean</td><td>The response body contained a boolean value when the OpenAPI spec expected a different type.</td></tr>
+<tr><td>ResponseFailedValidationUnexpectedNull</td><td>The response body contains a null value when the OpenAPI spec did not allow null values.</td></tr>
+<tr><td>ResponseFailedValidationUnexpectedNumber</td><td>The response body contained a number value when the OpenAPI spec expected a different type.</td></tr>
+<tr><td>ResponseFailedValidationUnexpectedProperty</td><td>The response body contained a property that was not defined in the OpenAPI spec.</td></tr>
+<tr><td>ResponseFailedValidationUnexpectedString</td><td>The response body contained a string value when the OpenAPI spec expected a different type.</td></tr>
+<tr><td>ResponseFailedValidationUnsupportedSchemaKind</td><td>The OpenAPI spec contained a schema with an unsupported kind, such as anyOf, oneOf, or not.</td></tr>
+<tr><td>ResponseMismatchNonEmptyBody</td><td>The upstream server included a non-empty response body when the OpenAPI spec expected an empty body.</td></tr>
+<tr><td>ResponseMismatchedContentTypeHeader</td><td>The upstream server included a Content-Type header in the response that does not match any content types defined in the OpenAPI spec.</td></tr>
+<tr><td>ResponseMissingContentTypeHeader</td><td>The upstream server did not include a Content-Type header in the response. This is only an issue when the response body is not empty.</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="custom-headers"><a class="header" href="#custom-headers">Custom Headers</a></h1>
+<p><code>openapi-validator-proxy</code> will forward all headers it recieves from the client to the upstream server. However, there are a couple headers that have special meaning to the proxy.</p>
+<h2 id="ovp-correlation-id"><a class="header" href="#ovp-correlation-id">OVP-Correlation-Id</a></h2>
+<p>This header controls the name of the testcase when it is captured in the report. Specifying this header is completely optional. If it is not specified, the proxy will generate a UUID v4 to use as the testcase name. This can be useful if you want requests to be correlated with a specific name or identifier.</p>
+<h4 id="example-setting-ovp-correlation-id"><a class="header" href="#example-setting-ovp-correlation-id">Example: Setting OVP-Correlation-Id</a></h4>
+<pre><code class="language-http">GET http://localhost:3000/pets
+OVP-Correlation-Id: get-pets
+</code></pre>
+<h2 id="ovp-fused-correlation-headers"><a class="header" href="#ovp-fused-correlation-headers">OVP-Fused-Correlation-Headers</a></h2>
+<p>This header allows you to specify additional headers which should be set with the same value as the <code>OVP-Correlation-Id</code>. This is useful if you want to specify a list of headers instead of headers with redundant values, OR if you want to rely on the uuid generated by the proxy.</p>
+<h4 id="example-setting-ovp-correlation-id-and-ovp-fused-correlation-headers"><a class="header" href="#example-setting-ovp-correlation-id-and-ovp-fused-correlation-headers">Example: Setting OVP-Correlation-Id and OVP-Fused-Correlation-Headers</a></h4>
+<pre><code class="language-http">GET http://localhost:3000/pets
+OVP-Correlation-Id: get-pets
+OVP-Fused-Correlation-Headers: X-Request-Id, X-Traceid
+</code></pre>
+<p>This is equivalent to:</p>
+<pre><code class="language-http">GET http://localhost:3000/pets
+OVP-Correlation-Id: get-pets
+X-Request-Id: get-pets
+X-Traceid: get-pets
+</code></pre>
+<h4 id="example-fusing-headers-with-the-generated-uuid"><a class="header" href="#example-fusing-headers-with-the-generated-uuid">Example: Fusing headers with the generated UUID</a></h4>
+<pre><code class="language-http">GET http://localhost:3000/pets
+OVP-Fused-Correlation-Headers: X-Request-Id, X-Traceid
+</code></pre>
+<p>When this request is received, the proxy will generate a UUID and set the headers for OVP-Correlation-Id, X-Request-Id, and X-Traceid to the same value.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="reports"><a class="header" href="#reports">Reports</a></h1>
+<p>Reports are generated while the proxy is running. The proxy does not persist these reports, you will need to make a request to download them before killing the proxy. Below you can see the list of reports that are available:</p>
+<ul>
+<li><a href="./report_junit.html">JUnit</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="junit"><a class="header" href="#junit">JUnit</a></h1>
+<p>The JUnit report is a standard XML report that can be used with any CI/CD tool that supports JUnit reports. You can download this report by making a GET request to the proxy like this:</p>
+<pre><code class="language-http">GET http://localhost:3000/_ovp/junit
+</code></pre>
+<p>If you're using <code>curl</code> you could save this output to a file like:</p>
+<pre><code class="language-sh">curl -o junit.xml http://localhost:3000/_ovp/junit
+</code></pre>
+<p>References:</p>
+<ul>
+<li><a href="https://junit.org/junit5/docs/current/user-guide">Official JUnit user guide</a></li>
+<li><a href="https://github.com/testmoapp/junitxml">JUnit Report Examples</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="contributing"><a class="header" href="#contributing">Contributing</a></h1>
+<h2 id="testing"><a class="header" href="#testing">Testing</a></h2>
+<p>This project uses <a href="https://crates.io/crates/cargo-insta">cargo-insta</a> to create snapshots of the output to test against. Insta provides a tool that makes running these tests and reviewing their output easier. To install it run <code>cargo install cargo-insta</code>. Once this is installed, changes can be reviewed with <code>cargo insta test --review</code>.</p>
+<p>If you're just trying to run the tests you can run <code>cargo test</code>.</p>
+<h2 id="releasing"><a class="header" href="#releasing">Releasing</a></h2>
+<p>This project uses <a href="https://opensource.axo.dev/cargo-dist/">cargo-dist</a> and <a href="https://github.com/crate-ci/cargo-release">cargo-release</a> for the release process.</p>
+<p>The release process looks like this:</p>
+<ul>
+<li>Checkout master</li>
+<li>Create commit that updates RELEASES.md with notes for the new release and push commit</li>
+<li>Run <code>cargo release patch</code> (or minor or major) and verify the release looks correct</li>
+<li>Run <code>cargo release patch --execute --no-publish</code> to create the tag and push it to GitHub</li>
+<li>The GitHub Action should start immediately for the tag</li>
+</ul>
+<p>If you are updating cargo-dist you should also run <code>cargo dist init</code> to capture changes to the action.</p>
+<h2 id="building-the-book"><a class="header" href="#building-the-book">Building the Book</a></h2>
+<p>This project uses <a href="https://opensource.axo.dev/oranda/">oranda</a> (in conjunction with <a href="https://rust-lang.github.io/mdBook/">mdbook</a>) to build a documentation site for the project. To start a development server run <code>oranda dev</code> and navigate to the page. Building the site for production is done within GitHub Actions and committed to the gh-pages branch.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
