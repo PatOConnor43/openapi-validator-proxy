@@ -1,0 +1,29 @@
+---
+source: tests/integration_request_validation.rs
+expression: xml
+---
+<testsuites>
+    <testsuite name="openapi-validator-proxy" tests="1" failures="1">
+        <testcase name="POST /pets missing_content_type_header" time="0.00">
+            <system-out>
+[[PROPERTY|correlationId=missing_content_type_header]]
+[[PROPERTY|method=POST]]
+[[PROPERTY|operationId=createPets]]
+[[PROPERTY|path=/pets]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=201]]
+            </system-out>
+            <failure type="Request.MissingContentTypeHeader" message="failure">
+[[PROPERTY|correlationId=missing_content_type_header]]
+[[PROPERTY|method=POST]]
+[[PROPERTY|operationId=createPets]]
+[[PROPERTY|path=/pets]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=201]]
+
+Failure message:
+Request did not include a Content-Type header, unable to validate request body schema.
+            </failure>
+        </testcase>
+    </testsuite>
+</testsuites>

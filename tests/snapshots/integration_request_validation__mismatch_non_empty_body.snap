@@ -1,0 +1,31 @@
+---
+source: tests/integration_request_validation.rs
+expression: xml
+---
+<testsuites>
+    <testsuite name="openapi-validator-proxy" tests="1" failures="1">
+        <testcase name="GET /pets/1 mismatch_non_empty_body" time="0.00">
+            <system-out>
+[[PROPERTY|correlationId=mismatch_non_empty_body]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=showPetById]]
+[[PROPERTY|path=/pets/1]]
+[[PROPERTY|pathParameter-petId=1]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
+            </system-out>
+            <failure type="Request.MismatchNonEmptyBody" message="failure">
+[[PROPERTY|correlationId=mismatch_non_empty_body]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=showPetById]]
+[[PROPERTY|path=/pets/1]]
+[[PROPERTY|pathParameter-petId=1]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
+
+Failure message:
+Client supplied request body when none was included in spec.
+            </failure>
+        </testcase>
+    </testsuite>
+</testsuites>

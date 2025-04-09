@@ -1,0 +1,31 @@
+---
+source: tests/integration_request_validation.rs
+expression: xml
+---
+<testsuites>
+    <testsuite name="openapi-validator-proxy" tests="1" failures="1">
+        <testcase name="POST /missing_pets_schema missing_schema_definition" time="0.00">
+            <system-out>
+[[PROPERTY|correlationId=missing_schema_definition]]
+[[PROPERTY|method=POST]]
+[[PROPERTY|operationId=missingPetsSchema]]
+[[PROPERTY|path=/missing_pets_schema]]
+[[PROPERTY|requestContentType=application/json]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=201]]
+            </system-out>
+            <failure type="MissingSchemaDefinition" message="failure">
+[[PROPERTY|correlationId=missing_schema_definition]]
+[[PROPERTY|method=POST]]
+[[PROPERTY|operationId=missingPetsSchema]]
+[[PROPERTY|path=/missing_pets_schema]]
+[[PROPERTY|requestContentType=application/json]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=201]]
+
+Failure message:
+Could not find schema defined inline or as a #/components/schemas/ reference
+            </failure>
+        </testcase>
+    </testsuite>
+</testsuites>
