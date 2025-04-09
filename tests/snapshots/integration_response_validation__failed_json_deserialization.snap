@@ -1,5 +1,5 @@
 ---
-source: tests/integration.rs
+source: tests/integration_response_validation.rs
 expression: xml
 ---
 <testsuites>
@@ -14,7 +14,7 @@ expression: xml
 [[PROPERTY|responseContentType=application/json]]
 [[PROPERTY|statusCode=200]]
             </system-out>
-            <failure type="FailedJSONDeserialization" message="failure">
+            <failure type="Response.FailedJSONDeserialization" message="failure">
 [[PROPERTY|correlationId=failed_json_deserialization]]
 [[PROPERTY|method=GET]]
 [[PROPERTY|operationId=showPetById]]

@@ -92,8 +92,6 @@ struct TestcaseFailure {
 /// An enum describing the type of test failure that occurred.
 #[derive(Debug, Clone)]
 enum TestcaseFailureType {
-    /// The response body could not be deserialized as JSON.
-    FailedJSONDeserialization,
     /// The HTTP method used in the request is not one of the expected values: DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, or TRACE.
     InvalidHTTPMethod,
     /// The status code returned by the upstream server does not have a matching response in the OpenAPI spec.
@@ -106,6 +104,8 @@ enum TestcaseFailureType {
     /// The requested path was not found in the OpenAPI spec.
     PathNotFound,
 
+    /// The request body could not be deserialized as JSON.
+    RequestFailedJSONDeserialization,
     /// The request body contained a boolean value when the OpenAPI spec expected a different type.
     RequestFailedValidationUnexpectedBoolean,
     /// The request body contains a null value when the OpenAPI spec did not allow null values.
@@ -125,6 +125,8 @@ enum TestcaseFailureType {
     /// The client did not include a Content-Type header in the request. This is only an issue when the response body is not empty.
     RequestMissingContentTypeHeader,
 
+    /// The response body could not be deserialized as JSON.
+    ResponseFailedJSONDeserialization,
     /// The response body contained a boolean value when the OpenAPI spec expected a different type.
     ResponseFailedValidationUnexpectedBoolean,
     /// The response body contains a null value when the OpenAPI spec did not allow null values.
@@ -148,9 +150,6 @@ enum TestcaseFailureType {
 impl std::fmt::Display for TestcaseFailureType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-            TestcaseFailureType::FailedJSONDeserialization => {
-                write!(f, "FailedJSONDeserialization")
-            }
             TestcaseFailureType::InvalidHTTPMethod => write!(f, "InvalidHTTPMethod"),
             TestcaseFailureType::InvalidStatusCode => write!(f, "InvalidStatusCode"),
             TestcaseFailureType::MissingResponseDefinition => {
@@ -158,6 +157,9 @@ impl std::fmt::Display for TestcaseFailureType {
             }
             TestcaseFailureType::MissingSchemaDefinition => write!(f, "MissingSchemaDefinition"),
             TestcaseFailureType::PathNotFound => write!(f, "PathNotFound"),
+            TestcaseFailureType::RequestFailedJSONDeserialization => {
+                write!(f, "Request.FailedJSONDeserialization")
+            }
             TestcaseFailureType::RequestFailedValidationUnexpectedBoolean => {
                 write!(f, "Request.FailedValidation.UnexpectedBoolean")
             }
@@ -184,6 +186,9 @@ impl std::fmt::Display for TestcaseFailureType {
             }
             TestcaseFailureType::RequestMissingContentTypeHeader => {
                 write!(f, "Request.MissingContentTypeHeader")
+            }
+            TestcaseFailureType::ResponseFailedJSONDeserialization => {
+                write!(f, "Response.FailedJSONDeserialization")
             }
             TestcaseFailureType::ResponseFailedValidationUnexpectedBoolean => {
                 write!(f, "Response.FailedValidation.UnexpectedBoolean")
@@ -562,7 +567,7 @@ async fn validate_request(
     let spec_request_body = operation.request_body.as_ref();
     if spec_request_body.is_none() && !validated.body.is_empty() {
         validated.failures.push(TestcaseFailure {
-            text: "Client supplied request body when none was included in spec".to_string(),
+            text: "Client supplied request body when none was included in spec.".to_string(),
             r#type: TestcaseFailureType::RequestMismatchNonEmptyBody,
         });
         return validated;
@@ -644,7 +649,7 @@ async fn validate_request(
     if serde_value.is_err() {
         validated.failures.push(TestcaseFailure {
             text: "Failed to parse request body as JSON".to_string(),
-            r#type: TestcaseFailureType::FailedJSONDeserialization,
+            r#type: TestcaseFailureType::RequestFailedJSONDeserialization,
         });
         return validated;
     }
@@ -826,7 +831,7 @@ fn validate_response(
     if serde_value.is_err() {
         validated.failures.push(TestcaseFailure {
             text: "Failed to parse response body as JSON".to_string(),
-            r#type: TestcaseFailureType::FailedJSONDeserialization,
+            r#type: TestcaseFailureType::ResponseFailedJSONDeserialization,
         });
         return validated;
     }
