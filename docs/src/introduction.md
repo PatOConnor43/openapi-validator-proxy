@@ -3,7 +3,7 @@
 This project is an attempt at providing API Validation for any service that uses an OpenAPI specification. Specifically, this project is designed to proxy requests and responses and verify that they conform to your API specification.
 
 ## How it works
-openapi-validator-proxy works by creating a server that listens for requests and then sends them to an upstream server. For each request it receives, it validates the response and saves the result as a testcase. Each testcase includes information about the path, method, parameters, and response code. If the response fails validation, the testcase will include an error type and message that describes the failure.
+openapi-validator-proxy works by creating a server that listens for requests and then sends them to an upstream server. For each request it receives, it validates the request and response and then saves the result as a testcase. Each testcase includes information about the path, method, parameters, and response code. If the response fails validation, the testcase will include an error type and message that describes the failure.
 
 
 ## High Level Goals

@@ -15,15 +15,15 @@ cargo +nightly rustdoc -Z unstable-options --output-format json
 # 5. Convert the array of key-value pairs back into an object
 # 6. Get the enum varients IDs of the TestcaseFailureType enum
 # 7. Convert the enum varients IDs into a shell array
-FAILURE_VARIENTS=$(jq -r '.index | to_entries | map(select(.value.crate_id == 0)) | map(select(.value.name == "TestcaseFailureType")) | from_entries | .[].inner.enum.variants | @sh' target/doc/openapi_validator_proxy.json)
+FAILURE_VARIANTS=$(jq -r '.index | to_entries | map(select(.value.crate_id == 0)) | map(select(.value.name == "TestcaseFailureType")) | from_entries | .[].inner.enum.variants | @sh' target/doc/openapi_validator_proxy.json)
 
 # Print the table header
 echo "|name|docs|"
 echo "|---|---|"
 
-# For each enum varient, print the name and docs of the varient while removing newlines and tabs
-for varient in $FAILURE_VARIENTS; do
-    trimmed_varient=$(echo $varient | tr -d \')
+# For each enum variant, print the name and docs of the variant while removing newlines and tabs
+for variant in $FAILURE_VARIANTS; do
+    trimmed_varient=$(echo $variant | tr -d \')
     echo -n "|"
     name=$(jq -r '.index."'"$trimmed_varient"'" | .name | gsub("[\\n\\t]"; "")' target/doc/openapi_validator_proxy.json)
     echo -n "$name"
