@@ -1,3 +1,8 @@
+# Version 0.5.0 (2025-04-09)
+New Features:
+- Added support for Request Validation. For now, this only includes request body validation and uses the exact same logic as response body validation.
+- The FailureType enum has also been updated to include many Request specific types. Check the docs site for the full list.
+
 # Version 0.4.1 (2024-12-01)
 Bug Fixes:
 - Properties were not showing in Failure messages. This was fixed by duplicating the properties in the failure message.
