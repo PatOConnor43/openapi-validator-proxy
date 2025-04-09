@@ -1,26 +1,28 @@
 ---
-source: tests/integration.rs
+source: tests/integration_response_validation.rs
 expression: xml
 ---
 <testsuites>
     <testsuite name="openapi-validator-proxy" tests="1" failures="1">
-        <testcase name="GET /pets missing_content_type_header" time="0.00">
+        <testcase name="GET /pets mismatched_content_type_header" time="0.00">
             <system-out>
-[[PROPERTY|correlationId=missing_content_type_header]]
+[[PROPERTY|correlationId=mismatched_content_type_header]]
 [[PROPERTY|method=GET]]
 [[PROPERTY|operationId=listPets]]
 [[PROPERTY|path=/pets]]
+[[PROPERTY|responseContentType=wrong]]
 [[PROPERTY|statusCode=200]]
             </system-out>
-            <failure type="MissingContentTypeHeader" message="failure">
-[[PROPERTY|correlationId=missing_content_type_header]]
+            <failure type="Response.MismatchedContentTypeHeader" message="failure">
+[[PROPERTY|correlationId=mismatched_content_type_header]]
 [[PROPERTY|method=GET]]
 [[PROPERTY|operationId=listPets]]
 [[PROPERTY|path=/pets]]
+[[PROPERTY|responseContentType=wrong]]
 [[PROPERTY|statusCode=200]]
 
 Failure message:
-Response did not include a Content-Type header
+Spec does not contain matching response for Content-Type: wrong
             </failure>
         </testcase>
     </testsuite>

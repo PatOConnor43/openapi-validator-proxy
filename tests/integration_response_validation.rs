@@ -1,39 +1,9 @@
+mod common;
+use common::ValidatorProxyServerHandle;
+
 use httpmock::MockServer;
-use insta_cmd::get_cargo_bin;
 use rand::Rng;
-use std::process::Command;
 use ureq::OrAnyStatus;
-
-/// This struct is used to start the validator proxy.
-struct ValidatorProxyServerHandle {
-    process: std::process::Child,
-}
-
-impl ValidatorProxyServerHandle {
-    /// new will start the validator proxy on a random part using the petstore.yaml file.
-    fn new(url: &str, port: u16) -> Self {
-        let mut cmd = Command::new(get_cargo_bin("openapi-validator-proxy"));
-        cmd.args([
-            "proxy",
-            "tests/petstore.yaml",
-            url,
-            "--port",
-            &port.to_string(),
-        ]);
-        let child = cmd.spawn().unwrap();
-        // Wait for the server to start
-        std::thread::sleep(std::time::Duration::from_millis(1000));
-        println!("Proxy server started");
-        Self { process: child }
-    }
-}
-
-impl Drop for ValidatorProxyServerHandle {
-    /// This Drop implementation will kill the validator proxy server when the handle goes out of scope (when the test ends).
-    fn drop(&mut self) {
-        self.process.kill().unwrap();
-    }
-}
 
 #[test]
 fn path_not_found() -> Result<(), Box<dyn std::error::Error>> {
@@ -54,7 +24,12 @@ fn path_not_found() -> Result<(), Box<dyn std::error::Error>> {
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -77,7 +52,12 @@ fn invalid_http_method() -> Result<(), Box<dyn std::error::Error>> {
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -100,7 +80,12 @@ fn invalid_status_code() -> Result<(), Box<dyn std::error::Error>> {
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -123,7 +108,12 @@ fn missing_content_type_header() -> Result<(), Box<dyn std::error::Error>> {
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -148,7 +138,12 @@ fn mismatched_content_type_header() -> Result<(), Box<dyn std::error::Error>> {
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -173,7 +168,12 @@ fn mismatch_non_empty_body() -> Result<(), Box<dyn std::error::Error>> {
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -200,7 +200,12 @@ fn missing_schema_definition() -> Result<(), Box<dyn std::error::Error>> {
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -227,7 +232,12 @@ fn failed_json_deserialization() -> Result<(), Box<dyn std::error::Error>> {
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -254,7 +264,12 @@ fn failed_validation_unexpected_null() -> Result<(), Box<dyn std::error::Error>>
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -281,7 +296,12 @@ fn failed_validation_unexpected_boolean() -> Result<(), Box<dyn std::error::Erro
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -308,7 +328,12 @@ fn failed_validation_unexpected_number() -> Result<(), Box<dyn std::error::Error
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -335,7 +360,12 @@ fn failed_validation_unexpected_string() -> Result<(), Box<dyn std::error::Error
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -365,7 +395,12 @@ fn failed_validation_unexpected_property() -> Result<(), Box<dyn std::error::Err
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -396,7 +431,12 @@ fn failed_validation_unsupported_schema_kind() -> Result<(), Box<dyn std::error:
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -421,7 +461,12 @@ fn delete_with_204() -> Result<(), Box<dyn std::error::Error>> {
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }
 
@@ -446,6 +491,11 @@ fn empty_body_200() -> Result<(), Box<dyn std::error::Error>> {
     let xml = junit.into_string()?;
     mock.assert();
 
-    insta::assert_snapshot!(xml);
+    // Remove the time found at the end of the testcase xml element
+    insta::with_settings!({filters => vec![
+        (r#"time="0.\d{2}">"#, r#"time="0.00">"#),
+    ]}, {
+        insta::assert_snapshot!(xml);
+    });
     Ok(())
 }

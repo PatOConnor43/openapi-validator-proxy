@@ -1,0 +1,31 @@
+---
+source: tests/integration_response_validation.rs
+expression: xml
+---
+<testsuites>
+    <testsuite name="openapi-validator-proxy" tests="1" failures="1">
+        <testcase name="GET /pets/1 failed_validation_unexpected_boolean" time="0.00">
+            <system-out>
+[[PROPERTY|correlationId=failed_validation_unexpected_boolean]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=showPetById]]
+[[PROPERTY|path=/pets/1]]
+[[PROPERTY|pathParameter-petId=1]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
+            </system-out>
+            <failure type="Response.FailedValidation.UnexpectedBoolean" message="failure">
+[[PROPERTY|correlationId=failed_validation_unexpected_boolean]]
+[[PROPERTY|method=GET]]
+[[PROPERTY|operationId=showPetById]]
+[[PROPERTY|path=/pets/1]]
+[[PROPERTY|pathParameter-petId=1]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
+
+Failure message:
+Received unexpected boolean at /id/
+            </failure>
+        </testcase>
+    </testsuite>
+</testsuites>

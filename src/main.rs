@@ -92,82 +92,150 @@ struct TestcaseFailure {
 /// An enum describing the type of test failure that occurred.
 #[derive(Debug, Clone)]
 enum TestcaseFailureType {
-    /// The requested path was not found in the OpenAPI spec. This response was not validated
-    /// and may be missing relevant testcase properties.
-    PathNotFound,
-    /// The HTTP method used in the request is not one of the expected values:
-    /// DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, or TRACE.
+    /// The HTTP method used in the request is not one of the expected values: DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, or TRACE.
     InvalidHTTPMethod,
     /// The status code returned by the upstream server does not have a matching response in the OpenAPI spec.
     InvalidStatusCode,
     /// The OpenAPI spec contained a missing inline response definition or referenced a response that did not exist.
     MissingResponseDefinition,
-    /// The upstream server did not include a Content-Type header in the response. This is only an
-    /// issue when the response body is not empty.
-    MissingContentTypeHeader,
-    /// The upstream server included a Content-Type header in the response that does not match any
-    /// content types defined in the OpenAPI spec.
-    MismatchedContentTypeHeader,
-    /// The upstream server included a non-empty response body when the OpenAPI spec expects an empty body.
-    MismatchNonEmptyBody,
+    /// The requested path was not found in the OpenAPI spec. This response was not validated and may be missing relevant testcase properties.
     /// The OpenAPI spec contained a missing inline schema definition or referenced a schema that did not exist.
     MissingSchemaDefinition,
-    /// The response body could not be deserialized as JSON.
-    FailedJSONDeserialization,
-    /// The response body contains a null value when the OpenAPI spec did not allow null values.
-    FailedValidationUnexpectedNull,
-    /// The response body contained a boolean value when the OpenAPI spec expected a different type.
-    FailedValidationUnexpectedBoolean,
-    /// The response body contained a number value when the OpenAPI spec expected a different type.
-    FailedValidationUnexpectedNumber,
-    /// The response body contained a string value when the OpenAPI spec expected a different type.
-    FailedValidationUnexpectedString,
-    /// The response body contained a property that was not defined in the OpenAPI spec.
-    FailedValidationUnexpectedProperty,
+    /// The requested path was not found in the OpenAPI spec.
+    PathNotFound,
+
+    /// The request body could not be deserialized as JSON.
+    RequestFailedJSONDeserialization,
+    /// The request body contained a boolean value when the OpenAPI spec expected a different type.
+    RequestFailedValidationUnexpectedBoolean,
+    /// The request body contains a null value when the OpenAPI spec did not allow null values.
+    RequestFailedValidationUnexpectedNull,
+    /// The request body contained a number value when the OpenAPI spec expected a different type.
+    RequestFailedValidationUnexpectedNumber,
+    /// The request body contained a property that was not defined in the OpenAPI spec.
+    RequestFailedValidationUnexpectedProperty,
+    /// The request body contained a string value when the OpenAPI spec expected a different type.
+    RequestFailedValidationUnexpectedString,
     /// The OpenAPI spec contained a schema with an unsupported kind, such as anyOf, oneOf, or not.
-    FailedValidationUnsupportedSchemaKind,
+    RequestFailedValidationUnsupportedSchemaKind,
+    /// The client included a non-empty body when the OpenAPI spec expected an empty body.
+    RequestMismatchNonEmptyBody,
+    /// The client included a Content-Type header in the request that does not match any content types defined in the OpenAPI spec.
+    RequestMismatchedContentTypeHeader,
+    /// The client did not include a Content-Type header in the request. This is only an issue when the response body is not empty.
+    RequestMissingContentTypeHeader,
+
+    /// The response body could not be deserialized as JSON.
+    ResponseFailedJSONDeserialization,
+    /// The response body contained a boolean value when the OpenAPI spec expected a different type.
+    ResponseFailedValidationUnexpectedBoolean,
+    /// The response body contains a null value when the OpenAPI spec did not allow null values.
+    ResponseFailedValidationUnexpectedNull,
+    /// The response body contained a number value when the OpenAPI spec expected a different type.
+    ResponseFailedValidationUnexpectedNumber,
+    /// The response body contained a property that was not defined in the OpenAPI spec.
+    ResponseFailedValidationUnexpectedProperty,
+    /// The response body contained a string value when the OpenAPI spec expected a different type.
+    ResponseFailedValidationUnexpectedString,
+    /// The OpenAPI spec contained a schema with an unsupported kind, such as anyOf, oneOf, or not.
+    ResponseFailedValidationUnsupportedSchemaKind,
+    /// The upstream server included a non-empty response body when the OpenAPI spec expected an empty body.
+    ResponseMismatchNonEmptyBody,
+    /// The upstream server included a Content-Type header in the response that does not match any content types defined in the OpenAPI spec.
+    ResponseMismatchedContentTypeHeader,
+    /// The upstream server did not include a Content-Type header in the response. This is only an issue when the response body is not empty.
+    ResponseMissingContentTypeHeader,
 }
 
 impl std::fmt::Display for TestcaseFailureType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-            TestcaseFailureType::PathNotFound => write!(f, "PathNotFound"),
             TestcaseFailureType::InvalidHTTPMethod => write!(f, "InvalidHTTPMethod"),
             TestcaseFailureType::InvalidStatusCode => write!(f, "InvalidStatusCode"),
             TestcaseFailureType::MissingResponseDefinition => {
                 write!(f, "MissingResponseDefinition")
             }
-            TestcaseFailureType::MissingContentTypeHeader => {
-                write!(f, "MissingContentTypeHeader")
-            }
-            TestcaseFailureType::MismatchedContentTypeHeader => {
-                write!(f, "MismatchedContentTypeHeader")
-            }
-            TestcaseFailureType::MismatchNonEmptyBody => write!(f, "MismatchNonEmptyBody"),
             TestcaseFailureType::MissingSchemaDefinition => write!(f, "MissingSchemaDefinition"),
-            TestcaseFailureType::FailedJSONDeserialization => {
-                write!(f, "FailedJSONDeserialization")
+            TestcaseFailureType::PathNotFound => write!(f, "PathNotFound"),
+            TestcaseFailureType::RequestFailedJSONDeserialization => {
+                write!(f, "Request.FailedJSONDeserialization")
             }
-            TestcaseFailureType::FailedValidationUnexpectedNull => {
-                write!(f, "FailedValidation.UnexpectedNull")
+            TestcaseFailureType::RequestFailedValidationUnexpectedBoolean => {
+                write!(f, "Request.FailedValidation.UnexpectedBoolean")
             }
-            TestcaseFailureType::FailedValidationUnexpectedBoolean => {
-                write!(f, "FailedValidation.UnexpectedBoolean")
+            TestcaseFailureType::RequestFailedValidationUnexpectedNull => {
+                write!(f, "Request.FailedValidation.UnexpectedNull")
             }
-            TestcaseFailureType::FailedValidationUnexpectedNumber => {
-                write!(f, "FailedValidation.UnexpectedNumber")
+            TestcaseFailureType::RequestFailedValidationUnexpectedNumber => {
+                write!(f, "Request.FailedValidation.UnexpectedNumber")
             }
-            TestcaseFailureType::FailedValidationUnexpectedString => {
-                write!(f, "FailedValidation.UnexpectedString")
+            TestcaseFailureType::RequestFailedValidationUnexpectedProperty => {
+                write!(f, "Request.FailedValidation.UnexpectedProperty")
             }
-            TestcaseFailureType::FailedValidationUnexpectedProperty => {
-                write!(f, "FailedValidation.UnexpectedProperty")
+            TestcaseFailureType::RequestFailedValidationUnexpectedString => {
+                write!(f, "Request.FailedValidation.UnexpectedString")
             }
-            TestcaseFailureType::FailedValidationUnsupportedSchemaKind => {
-                write!(f, "FailedValidation.UnsupportedSchemaKind")
+            TestcaseFailureType::RequestFailedValidationUnsupportedSchemaKind => {
+                write!(f, "Request.FailedValidation.UnsupportedSchemaKind")
+            }
+            TestcaseFailureType::RequestMismatchNonEmptyBody => {
+                write!(f, "Request.MismatchNonEmptyBody")
+            }
+            TestcaseFailureType::RequestMismatchedContentTypeHeader => {
+                write!(f, "Request.MismatchedContentTypeHeader")
+            }
+            TestcaseFailureType::RequestMissingContentTypeHeader => {
+                write!(f, "Request.MissingContentTypeHeader")
+            }
+            TestcaseFailureType::ResponseFailedJSONDeserialization => {
+                write!(f, "Response.FailedJSONDeserialization")
+            }
+            TestcaseFailureType::ResponseFailedValidationUnexpectedBoolean => {
+                write!(f, "Response.FailedValidation.UnexpectedBoolean")
+            }
+            TestcaseFailureType::ResponseFailedValidationUnexpectedNull => {
+                write!(f, "Response.FailedValidation.UnexpectedNull")
+            }
+            TestcaseFailureType::ResponseFailedValidationUnexpectedNumber => {
+                write!(f, "Response.FailedValidation.UnexpectedNumber")
+            }
+            TestcaseFailureType::ResponseFailedValidationUnexpectedProperty => {
+                write!(f, "Response.FailedValidation.UnexpectedProperty")
+            }
+            TestcaseFailureType::ResponseFailedValidationUnexpectedString => {
+                write!(f, "Response.FailedValidation.UnexpectedString")
+            }
+            TestcaseFailureType::ResponseFailedValidationUnsupportedSchemaKind => {
+                write!(f, "Response.FailedValidation.UnsupportedSchemaKind")
+            }
+            TestcaseFailureType::ResponseMismatchNonEmptyBody => {
+                write!(f, "Response.MismatchNonEmptyBody")
+            }
+            TestcaseFailureType::ResponseMismatchedContentTypeHeader => {
+                write!(f, "Response.MismatchedContentTypeHeader")
+            }
+            TestcaseFailureType::ResponseMissingContentTypeHeader => {
+                write!(f, "Response.MissingContentTypeHeader")
             }
         }
     }
+}
+
+#[derive(Debug, Clone, Copy)]
+enum ValidationPerspective {
+    Request,
+    Response,
+}
+
+struct ValidatedRequest {
+    body: Vec<u8>,
+    path_and_query: String,
+    #[allow(dead_code)]
+    path: String,
+    failures: Vec<TestcaseFailure>,
+    headers: axum::http::HeaderMap,
+    method: axum::http::Method,
+    properties: Vec<TestcaseProperty>,
 }
 
 struct ValidatedResponse {
@@ -283,6 +351,27 @@ async fn root(state: State<AppState>, request: Request) -> impl IntoResponse {
     inner_handler(state, request).await
 }
 
+fn extract_path_remainder(upstream_path: &str, request_path: &str) -> String {
+    // This function removes the upstream path from the incoming request path. We do this for 2
+    // reasons:
+    // 1. We need to match the request path against the OpenAPI spec, which does not include the
+    // upstream path.
+    // 2. It gives us a single place where we can determine if the upstream path was configured
+    //    with an ending slash or not.
+    let path = request_path.strip_prefix(upstream_path);
+    match path {
+        Some(p) => {
+            // Make sure the path starts with a slash
+            if p.starts_with("/") {
+                p.to_string()
+            } else {
+                format!("/{}", p)
+            }
+        }
+        None => request_path.to_string(),
+    }
+}
+
 async fn inner_handler(
     State(AppState {
         spec,
@@ -294,40 +383,10 @@ async fn inner_handler(
 ) -> impl IntoResponse {
     let mut failures = vec![];
     let mut properties = vec![];
-    let method = request.method().clone();
-    let path = request.uri().path();
     let upstream_path = upstream.path();
-    // We are stripping the upstream path from the request path so that we can match it against the OpenAPI spec.
-    // We still use the full path to make the actual request to the upstream server.
-    let path = match path.strip_prefix(upstream_path) {
-        Some(p) => {
-            // Make sure the path starts with a slash
-            if p.starts_with("/") {
-                p.to_string()
-            } else {
-                format!("/{}", p)
-            }
-        }
-        None => path.to_string(),
-    };
+    let path_remainder = extract_path_remainder(upstream_path, request.uri().path());
 
-    let path_and_query = request.uri().path_and_query().unwrap();
-    let url = upstream.join(path_and_query.as_str()).unwrap();
-    info!(
-        method = method.as_str(),
-        url = url.to_string(),
-        "Handling request"
-    );
-    properties.push(TestcaseProperty {
-        name: "path".to_string(),
-        value: path.to_string(),
-    });
-    properties.push(TestcaseProperty {
-        name: "method".to_string(),
-        value: method.to_string(),
-    });
-
-    let wayfinder_path = wayfind::Path::new(&path).unwrap();
+    let wayfinder_path = wayfind::Path::new(&path_remainder).unwrap();
     let wayfinder_match = wayfinder.search(&wayfinder_path).unwrap();
     match &wayfinder_match {
         Some(wayfound) => {
@@ -346,9 +405,16 @@ async fn inner_handler(
         }
     }
     let wayfinder_path = wayfinder_match.map(|m| m.route.to_string());
+    let validated_request = validate_request(request, &spec, wayfinder_path.clone()).await;
+    let mut validated_properties = validated_request.properties.clone();
+    let mut validated_failures = validated_request.failures.clone();
+    properties.append(&mut validated_properties);
+    failures.append(&mut validated_failures);
+    let outgoing_url = upstream.join(&path_remainder).unwrap();
 
-    let mut outgoing_request = ureq::request(method.as_str(), url.as_str());
-    for (key, value) in request.headers() {
+    let mut outgoing_request =
+        ureq::request(validated_request.method.as_str(), outgoing_url.as_str());
+    for (key, value) in validated_request.headers.iter() {
         let key = key.as_str();
         let value = value.to_str().unwrap();
         outgoing_request = outgoing_request.set(key, value);
@@ -379,15 +445,19 @@ async fn inner_handler(
         name: "correlationId".to_string(),
         value: correlation_id.to_string(),
     });
-    let testcase_name = format!("{} {} {}", method, path_and_query, correlation_id);
-    let body = axum::body::to_bytes(request.into_body(), usize::MAX)
-        .await
-        .unwrap();
+    let testcase_name = format!(
+        "{} {} {}",
+        validated_request.method.as_str(),
+        validated_request.path_and_query,
+        correlation_id
+    );
+    let body = validated_request.body;
     let time_start = std::time::Instant::now();
     let response = outgoing_request.send_bytes(&body).or_any_status().unwrap();
     let time_end = std::time::Instant::now();
     let duration = time_end - time_start;
-    let mut validated_response = validate_response(response, method, &spec, wayfinder_path);
+    let mut validated_response =
+        validate_response(response, validated_request.method, &spec, wayfinder_path);
     failures.append(&mut validated_response.failures);
     properties.append(&mut validated_response.properties);
     properties.sort();
@@ -413,6 +483,187 @@ async fn inner_handler(
         response_headers,
         body,
     )
+}
+
+async fn validate_request(
+    request: axum::http::Request<axum::body::Body>,
+    spec: &openapiv3::OpenAPI,
+    wayfinder_path: Option<String>,
+) -> ValidatedRequest {
+    let path_and_query = request.uri().path_and_query().unwrap().to_string();
+    let path = request.uri().path().to_string();
+    let method = request.method().clone();
+    let headers = request.headers().clone();
+    let body = axum::body::to_bytes(request.into_body(), usize::MAX)
+        .await
+        .unwrap()
+        .to_vec();
+    info!(
+        method = method.as_str(),
+        path = path.to_string(),
+        "Handling request"
+    );
+
+    let properties = vec![
+        TestcaseProperty {
+            name: "path".to_string(),
+            value: path.to_string(),
+        },
+        TestcaseProperty {
+            name: "method".to_string(),
+            value: method.to_string(),
+        },
+    ];
+
+    let mut validated = ValidatedRequest {
+        body,
+        path_and_query,
+        path,
+        failures: vec![],
+        headers: headers.clone(),
+        method: method.clone(),
+        properties,
+    };
+
+    if wayfinder_path.is_none() {
+        return validated;
+    }
+
+    let wayfinder_path = wayfinder_path.unwrap();
+    let path = spec.paths.paths.get(&wayfinder_path).unwrap().as_item();
+    if path.is_none() {
+        validated.failures.push(TestcaseFailure {
+            text: "Path not found in spec".to_string(),
+            r#type: TestcaseFailureType::PathNotFound,
+        });
+        return validated;
+    }
+    let path = path.unwrap();
+    let operation = match method {
+        axum::http::Method::DELETE => path.delete.as_ref(),
+        axum::http::Method::GET => path.get.as_ref(),
+        axum::http::Method::HEAD => path.head.as_ref(),
+        axum::http::Method::OPTIONS => path.options.as_ref(),
+        axum::http::Method::PATCH => path.patch.as_ref(),
+        axum::http::Method::POST => path.post.as_ref(),
+        axum::http::Method::PUT => path.put.as_ref(),
+        axum::http::Method::TRACE => path.trace.as_ref(),
+        _ => None,
+    };
+    if operation.is_none() {
+        validated.failures.push(TestcaseFailure {
+            text: "Invalid HTTP method".to_string(),
+            r#type: TestcaseFailureType::InvalidHTTPMethod,
+        });
+        return validated;
+    }
+    let operation = operation.unwrap();
+    if let Some(operation_id) = &operation.operation_id {
+        validated.properties.push(TestcaseProperty {
+            name: "operationId".to_string(),
+            value: operation_id.to_string(),
+        });
+    }
+    let spec_request_body = operation.request_body.as_ref();
+    if spec_request_body.is_none() && !validated.body.is_empty() {
+        validated.failures.push(TestcaseFailure {
+            text: "Client supplied request body when none was included in spec.".to_string(),
+            r#type: TestcaseFailureType::RequestMismatchNonEmptyBody,
+        });
+        return validated;
+    }
+    if spec_request_body.is_none() {
+        return validated;
+    }
+    let spec_request_body = spec_request_body.unwrap();
+    let spec_request_body = resolve_request_body(spec_request_body, spec);
+    if spec_request_body.is_none() {
+        validated.failures.push(TestcaseFailure {
+            text: "Could not find request defined inline or as a #/components/requestBodies/ reference".to_string(),
+            r#type: TestcaseFailureType::MissingSchemaDefinition,
+        });
+        return validated;
+    }
+    let spec_request_body = spec_request_body.unwrap();
+    let request_content_type = headers.get("Content-Type");
+
+    // No Content-Type header but request body is not empty
+    if request_content_type.is_none() && !validated.body.is_empty() {
+        validated.failures.push(TestcaseFailure {
+            text: "Request did not include a Content-Type header, unable to validate request body schema.".to_string(),
+            r#type: TestcaseFailureType::RequestMissingContentTypeHeader,
+        });
+        return validated;
+    }
+
+    // No Content-Type header but request body is empty. This is fine.
+    if request_content_type.is_none() && validated.body.is_empty() {
+        return validated;
+    }
+
+    let request_content_type = request_content_type
+        .map(|v| v.to_str().unwrap())
+        .unwrap_or("");
+    validated.properties.push(TestcaseProperty {
+        name: "requestContentType".to_string(),
+        value: request_content_type.to_string(),
+    });
+
+    let spec_content = spec_request_body.content.get(request_content_type);
+    if spec_content.is_none() {
+        validated.failures.push(TestcaseFailure {
+            text: format!(
+                "Spec does not contain matching request for Content-Type: {}",
+                request_content_type
+            ),
+            r#type: TestcaseFailureType::RequestMismatchedContentTypeHeader,
+        });
+        return validated;
+    }
+    let spec_content = spec_content.unwrap();
+    if request_content_type != "application/json" {
+        debug!("Request content type is not application/json, skipping request body validation");
+        return validated;
+    }
+    let spec_schema = spec_content.schema.as_ref();
+    if spec_schema.is_none() {
+        validated.failures.push(TestcaseFailure {
+            text: "Could not find schema defined inline or as a #/components/schemas/ reference"
+                .to_string(),
+            r#type: TestcaseFailureType::MissingSchemaDefinition,
+        });
+        return validated;
+    }
+    let spec_schema = spec_schema.unwrap();
+    let spec_schema = resolve_schema(spec_schema, spec);
+    if spec_schema.is_none() {
+        validated.failures.push(TestcaseFailure {
+            text: "Could not find schema defined inline or as a #/components/schemas/ reference"
+                .to_string(),
+            r#type: TestcaseFailureType::MissingSchemaDefinition,
+        });
+        return validated;
+    }
+    let spec_schema = spec_schema.unwrap();
+    let serde_value = serde_json::from_slice::<serde_json::Value>(&validated.body);
+    if serde_value.is_err() {
+        validated.failures.push(TestcaseFailure {
+            text: "Failed to parse request body as JSON".to_string(),
+            r#type: TestcaseFailureType::RequestFailedJSONDeserialization,
+        });
+        return validated;
+    }
+    let serde_value = serde_value.unwrap();
+    let schema_validation_failures = validate_schema(
+        &serde_value,
+        spec_schema,
+        spec,
+        "/".to_string(),
+        ValidationPerspective::Request,
+    );
+    validated.failures.extend(schema_validation_failures);
+
+    validated
 }
 
 fn validate_response(
@@ -466,10 +717,6 @@ fn validate_response(
     let wayfinder_path = wayfinder_path.unwrap();
     let path = spec.paths.paths.get(&wayfinder_path).unwrap().as_item();
     if path.is_none() {
-        validated.failures.push(TestcaseFailure {
-            text: "Invalid HTTP method".to_string(),
-            r#type: TestcaseFailureType::PathNotFound,
-        });
         return validated;
     }
     let path = path.unwrap();
@@ -485,19 +732,9 @@ fn validate_response(
         _ => None,
     };
     if operation.is_none() {
-        validated.failures.push(TestcaseFailure {
-            text: "Invalid HTTP method".to_string(),
-            r#type: TestcaseFailureType::InvalidHTTPMethod,
-        });
         return validated;
     }
     let operation = operation.unwrap();
-    if let Some(operation_id) = &operation.operation_id {
-        validated.properties.push(TestcaseProperty {
-            name: "operationId".to_string(),
-            value: operation_id.to_string(),
-        });
-    }
     let spec_response = operation
         .responses
         .responses
@@ -525,7 +762,7 @@ fn validate_response(
     if response_content_type.is_none() && !spec_response.content.is_empty() {
         validated.failures.push(TestcaseFailure {
             text: "Response did not include a Content-Type header".to_string(),
-            r#type: TestcaseFailureType::MissingContentTypeHeader,
+            r#type: TestcaseFailureType::ResponseMissingContentTypeHeader,
         });
         return validated;
     }
@@ -541,7 +778,7 @@ fn validate_response(
     if response_content_type.is_empty() && !validated.body.is_empty() {
         validated.failures.push(TestcaseFailure {
             text: "Receieved response body when empty body is expected".to_string(),
-            r#type: TestcaseFailureType::MismatchNonEmptyBody,
+            r#type: TestcaseFailureType::ResponseMismatchNonEmptyBody,
         });
         return validated;
     }
@@ -559,7 +796,7 @@ fn validate_response(
                 "Spec does not contain matching response for Content-Type: {}",
                 response_content_type
             ),
-            r#type: TestcaseFailureType::MismatchedContentTypeHeader,
+            r#type: TestcaseFailureType::ResponseMismatchedContentTypeHeader,
         });
         return validated;
     }
@@ -570,7 +807,7 @@ fn validate_response(
         if !validated.body.is_empty() {
             validated.failures.push(TestcaseFailure {
                 text: "Receieved response body when empty body is expected".to_string(),
-                r#type: TestcaseFailureType::MismatchNonEmptyBody,
+                r#type: TestcaseFailureType::ResponseMismatchNonEmptyBody,
             });
         }
         return validated;
@@ -594,13 +831,18 @@ fn validate_response(
     if serde_value.is_err() {
         validated.failures.push(TestcaseFailure {
             text: "Failed to parse response body as JSON".to_string(),
-            r#type: TestcaseFailureType::FailedJSONDeserialization,
+            r#type: TestcaseFailureType::ResponseFailedJSONDeserialization,
         });
         return validated;
     }
     let serde_value = serde_value.unwrap();
-    let schema_validation_failures =
-        validate_schema(&serde_value, spec_schema, spec, "/".to_string());
+    let schema_validation_failures = validate_schema(
+        &serde_value,
+        spec_schema,
+        spec,
+        "/".to_string(),
+        ValidationPerspective::Response,
+    );
     validated.failures.extend(schema_validation_failures);
 
     validated
@@ -611,17 +853,26 @@ fn validate_schema(
     spec_schema: &openapiv3::Schema,
     spec: &openapiv3::OpenAPI,
     json_pointer: String,
+    validation_perspective: ValidationPerspective,
 ) -> Vec<TestcaseFailure> {
     let mut failures = vec![];
     match serde_value {
         serde_json::Value::Null => {
             if !spec_schema.schema_data.nullable {
+                let failure_type = match validation_perspective {
+                    ValidationPerspective::Request => {
+                        TestcaseFailureType::RequestFailedValidationUnexpectedNull
+                    }
+                    ValidationPerspective::Response => {
+                        TestcaseFailureType::ResponseFailedValidationUnexpectedNull
+                    }
+                };
                 failures.push(TestcaseFailure {
                     text: format!(
                         "Received null value when null is not allowed at {}",
                         json_pointer
                     ),
-                    r#type: TestcaseFailureType::FailedValidationUnexpectedNull,
+                    r#type: failure_type,
                 });
             }
             failures
@@ -632,9 +883,17 @@ fn validate_schema(
             {
                 return failures;
             }
+            let failure_type = match validation_perspective {
+                ValidationPerspective::Request => {
+                    TestcaseFailureType::RequestFailedValidationUnexpectedBoolean
+                }
+                ValidationPerspective::Response => {
+                    TestcaseFailureType::ResponseFailedValidationUnexpectedBoolean
+                }
+            };
             failures.push(TestcaseFailure {
                 text: format!("Received unexpected boolean at {}", json_pointer),
-                r#type: TestcaseFailureType::FailedValidationUnexpectedBoolean,
+                r#type: failure_type,
             });
             failures
         }
@@ -650,9 +909,17 @@ fn validate_schema(
             {
                 return failures;
             }
+            let failure_type = match validation_perspective {
+                ValidationPerspective::Request => {
+                    TestcaseFailureType::RequestFailedValidationUnexpectedNumber
+                }
+                ValidationPerspective::Response => {
+                    TestcaseFailureType::ResponseFailedValidationUnexpectedNumber
+                }
+            };
             failures.push(TestcaseFailure {
                 text: format!("Received unexpected number at {}", json_pointer),
-                r#type: TestcaseFailureType::FailedValidationUnexpectedNumber,
+                r#type: failure_type,
             });
             failures
         }
@@ -662,9 +929,17 @@ fn validate_schema(
             {
                 return failures;
             }
+            let failure_type = match validation_perspective {
+                ValidationPerspective::Request => {
+                    TestcaseFailureType::RequestFailedValidationUnexpectedString
+                }
+                ValidationPerspective::Response => {
+                    TestcaseFailureType::ResponseFailedValidationUnexpectedString
+                }
+            };
             failures.push(TestcaseFailure {
                 text: format!("Received unexpected string at {}", json_pointer),
-                r#type: TestcaseFailureType::FailedValidationUnexpectedString,
+                r#type: failure_type,
             });
             failures
         }
@@ -693,8 +968,13 @@ fn validate_schema(
                 let items_schema = items_schema.unwrap();
                 for (index, value) in serde_array.iter().enumerate() {
                     let json_pointer = format!("{}{}/", json_pointer, index);
-                    let schema_validation_failures =
-                        validate_schema(value, items_schema, spec, json_pointer);
+                    let schema_validation_failures = validate_schema(
+                        value,
+                        items_schema,
+                        spec,
+                        json_pointer,
+                        validation_perspective,
+                    );
                     failures.extend(schema_validation_failures);
                 }
             }
@@ -707,12 +987,20 @@ fn validate_schema(
                         let json_pointer = format!("{}{}", json_pointer, key);
                         let spec_property = spec_object.properties.get(key);
                         if spec_property.is_none() {
+                            let failure_type = match validation_perspective {
+                                ValidationPerspective::Request => {
+                                    TestcaseFailureType::RequestFailedValidationUnexpectedProperty
+                                }
+                                ValidationPerspective::Response => {
+                                    TestcaseFailureType::ResponseFailedValidationUnexpectedProperty
+                                }
+                            };
                             failures.push(TestcaseFailure {
                                 text: format!(
                                     "Unexpected property at {}, value {}",
                                     json_pointer, value
                                 ),
-                                r#type: TestcaseFailureType::FailedValidationUnexpectedProperty,
+                                r#type: failure_type,
                             });
                             continue;
                         }
@@ -732,23 +1020,37 @@ fn validate_schema(
                             spec_property,
                             spec,
                             format!("{}/", json_pointer),
+                            validation_perspective,
                         );
                         failures.extend(schema_validation_failures);
                     }
                 }
                 openapiv3::SchemaKind::AllOf { all_of } => {
                     let schema = create_schema_for_all_of(all_of, spec);
-                    let schema_validation_failures =
-                        validate_schema(serde_value, &schema, spec, json_pointer);
+                    let schema_validation_failures = validate_schema(
+                        serde_value,
+                        &schema,
+                        spec,
+                        json_pointer,
+                        validation_perspective,
+                    );
                     failures.extend(schema_validation_failures);
                 }
                 _ => {
+                    let failure_type = match validation_perspective {
+                        ValidationPerspective::Request => {
+                            TestcaseFailureType::RequestFailedValidationUnsupportedSchemaKind
+                        }
+                        ValidationPerspective::Response => {
+                            TestcaseFailureType::ResponseFailedValidationUnsupportedSchemaKind
+                        }
+                    };
                     failures.push(TestcaseFailure {
                         text: format!(
                             "Received unsupported schema kind: {:?} at {}",
                             spec_schema.schema_kind, json_pointer
                         ),
-                        r#type: TestcaseFailureType::FailedValidationUnsupportedSchemaKind,
+                        r#type: failure_type,
                     });
                 }
             }
@@ -799,6 +1101,25 @@ async fn shutdown_signal() {
         .await
         .expect("failed to install Ctrl+C handler");
     info!("Shutting down...")
+}
+
+fn resolve_request_body<'a>(
+    request_body: &'a openapiv3::ReferenceOr<openapiv3::RequestBody>,
+    openapi: &'a openapiv3::OpenAPI,
+) -> Option<&'a openapiv3::RequestBody> {
+    match request_body {
+        ReferenceOr::Item(item) => Some(item),
+        ReferenceOr::Reference { reference } => {
+            let request_body_name = reference.split("#/components/requestBodies/").nth(1);
+            request_body_name?;
+            let request_body_name = request_body_name.unwrap();
+            let components = openapi.components.as_ref()?;
+            let found_request_body = components.request_bodies.get(request_body_name);
+            found_request_body?;
+            let found_request_body = found_request_body.unwrap();
+            found_request_body.as_item()
+        }
+    }
 }
 
 fn resolve_response<'a>(

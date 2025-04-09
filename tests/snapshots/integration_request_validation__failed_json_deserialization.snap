@@ -1,0 +1,31 @@
+---
+source: tests/integration_request_validation.rs
+expression: xml
+---
+<testsuites>
+    <testsuite name="openapi-validator-proxy" tests="1" failures="1">
+        <testcase name="POST /pets failed_json_deserialization" time="0.00">
+            <system-out>
+[[PROPERTY|correlationId=failed_json_deserialization]]
+[[PROPERTY|method=POST]]
+[[PROPERTY|operationId=createPets]]
+[[PROPERTY|path=/pets]]
+[[PROPERTY|requestContentType=application/json]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=201]]
+            </system-out>
+            <failure type="Request.FailedJSONDeserialization" message="failure">
+[[PROPERTY|correlationId=failed_json_deserialization]]
+[[PROPERTY|method=POST]]
+[[PROPERTY|operationId=createPets]]
+[[PROPERTY|path=/pets]]
+[[PROPERTY|requestContentType=application/json]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=201]]
+
+Failure message:
+Failed to parse request body as JSON
+            </failure>
+        </testcase>
+    </testsuite>
+</testsuites>

@@ -53,7 +53,11 @@ paths:
         required: true
       responses:
         '201':
-          description: Null response
+          description: A created Pet
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
         default:
           description: unexpected error
           content:
@@ -122,6 +126,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MissingPetSchema"
+    post:
+      summary: An endpoint that references an invalid schema
+      operationId: missingPetsSchema
+      tags:
+        - pets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MissingPetSchema'
+        required: true
+      responses:
+        '201':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
   /any_of_pet_schema:
     get:
       summary: An endpoint that references an anyOf schema
@@ -135,6 +157,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AnyOfPetSchema"
+    post:
+      summary: An endpoint that references an anyOf schema
+      operationId: anyOfPetSchema
+      tags:
+        - pets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnyOfPetSchema'
+        required: true
+      responses:
+        '201':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
 components:
   schemas:
     Pet:

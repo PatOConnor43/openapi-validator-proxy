@@ -1,30 +1,30 @@
 ---
-source: tests/integration.rs
+source: tests/integration_response_validation.rs
 expression: xml
 ---
 <testsuites>
     <testsuite name="openapi-validator-proxy" tests="1" failures="1">
-        <testcase name="GET /pets/1 failed_json_deserialization" time="0.00">
+        <testcase name="GET /pets/1 mismatch_non_empty_body" time="0.00">
             <system-out>
-[[PROPERTY|correlationId=failed_json_deserialization]]
+[[PROPERTY|correlationId=mismatch_non_empty_body]]
 [[PROPERTY|method=GET]]
 [[PROPERTY|operationId=showPetById]]
 [[PROPERTY|path=/pets/1]]
 [[PROPERTY|pathParameter-petId=1]]
-[[PROPERTY|responseContentType=application/json]]
-[[PROPERTY|statusCode=200]]
+[[PROPERTY|responseContentType=]]
+[[PROPERTY|statusCode=202]]
             </system-out>
-            <failure type="FailedJSONDeserialization" message="failure">
-[[PROPERTY|correlationId=failed_json_deserialization]]
+            <failure type="Response.MismatchNonEmptyBody" message="failure">
+[[PROPERTY|correlationId=mismatch_non_empty_body]]
 [[PROPERTY|method=GET]]
 [[PROPERTY|operationId=showPetById]]
 [[PROPERTY|path=/pets/1]]
 [[PROPERTY|pathParameter-petId=1]]
-[[PROPERTY|responseContentType=application/json]]
-[[PROPERTY|statusCode=200]]
+[[PROPERTY|responseContentType=]]
+[[PROPERTY|statusCode=202]]
 
 Failure message:
-Failed to parse response body as JSON
+Receieved response body when empty body is expected
             </failure>
         </testcase>
     </testsuite>

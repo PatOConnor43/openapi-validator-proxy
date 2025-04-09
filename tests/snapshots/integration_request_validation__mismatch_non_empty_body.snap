@@ -1,5 +1,5 @@
 ---
-source: tests/integration.rs
+source: tests/integration_request_validation.rs
 expression: xml
 ---
 <testsuites>
@@ -11,20 +11,20 @@ expression: xml
 [[PROPERTY|operationId=showPetById]]
 [[PROPERTY|path=/pets/1]]
 [[PROPERTY|pathParameter-petId=1]]
-[[PROPERTY|responseContentType=]]
-[[PROPERTY|statusCode=202]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
             </system-out>
-            <failure type="MismatchNonEmptyBody" message="failure">
+            <failure type="Request.MismatchNonEmptyBody" message="failure">
 [[PROPERTY|correlationId=mismatch_non_empty_body]]
 [[PROPERTY|method=GET]]
 [[PROPERTY|operationId=showPetById]]
 [[PROPERTY|path=/pets/1]]
 [[PROPERTY|pathParameter-petId=1]]
-[[PROPERTY|responseContentType=]]
-[[PROPERTY|statusCode=202]]
+[[PROPERTY|responseContentType=application/json]]
+[[PROPERTY|statusCode=200]]
 
 Failure message:
-Receieved response body when empty body is expected
+Client supplied request body when none was included in spec.
             </failure>
         </testcase>
     </testsuite>
