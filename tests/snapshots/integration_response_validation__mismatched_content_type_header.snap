@@ -1,5 +1,5 @@
 ---
-source: tests/integration.rs
+source: tests/integration_response_validation.rs
 expression: xml
 ---
 <testsuites>
@@ -13,7 +13,7 @@ expression: xml
 [[PROPERTY|responseContentType=wrong]]
 [[PROPERTY|statusCode=200]]
             </system-out>
-            <failure type="MismatchedContentTypeHeader" message="failure">
+            <failure type="Response.MismatchedContentTypeHeader" message="failure">
 [[PROPERTY|correlationId=mismatched_content_type_header]]
 [[PROPERTY|method=GET]]
 [[PROPERTY|operationId=listPets]]

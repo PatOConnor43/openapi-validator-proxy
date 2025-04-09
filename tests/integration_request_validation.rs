@@ -21,6 +21,7 @@ fn failed_validation_unexpected_number() -> Result<(), Box<dyn std::error::Error
 
     ureq::post(format!("http://localhost:{}/pets", port).as_str())
         .set("OVP-Correlation-Id", "failed_validation_unexpected_number")
+        .set("Content-Type", "application/json")
         .send_string(r#"{"name": 0}"#)
         .or_any_status()
         .expect("Failed to make request");

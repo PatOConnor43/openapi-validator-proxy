@@ -1,5 +1,5 @@
 ---
-source: tests/integration.rs
+source: tests/integration_response_validation.rs
 expression: xml
 ---
 <testsuites>
@@ -14,7 +14,7 @@ expression: xml
 [[PROPERTY|responseContentType=application/json]]
 [[PROPERTY|statusCode=200]]
             </system-out>
-            <failure type="FailedValidation.UnexpectedString" message="failure">
+            <failure type="Response.FailedValidation.UnexpectedString" message="failure">
 [[PROPERTY|correlationId=failed_validation_unexpected_string]]
 [[PROPERTY|method=GET]]
 [[PROPERTY|operationId=showPetById]]

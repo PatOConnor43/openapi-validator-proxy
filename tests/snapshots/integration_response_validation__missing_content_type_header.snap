@@ -1,5 +1,5 @@
 ---
-source: tests/integration.rs
+source: tests/integration_response_validation.rs
 expression: xml
 ---
 <testsuites>
@@ -12,7 +12,7 @@ expression: xml
 [[PROPERTY|path=/pets]]
 [[PROPERTY|statusCode=200]]
             </system-out>
-            <failure type="MissingContentTypeHeader" message="failure">
+            <failure type="Response.MissingContentTypeHeader" message="failure">
 [[PROPERTY|correlationId=missing_content_type_header]]
 [[PROPERTY|method=GET]]
 [[PROPERTY|operationId=listPets]]

@@ -1,5 +1,5 @@
 ---
-source: tests/integration.rs
+source: tests/integration_response_validation.rs
 expression: xml
 ---
 <testsuites>
@@ -14,7 +14,7 @@ expression: xml
 [[PROPERTY|responseContentType=]]
 [[PROPERTY|statusCode=202]]
             </system-out>
-            <failure type="MismatchNonEmptyBody" message="failure">
+            <failure type="Response.MismatchNonEmptyBody" message="failure">
 [[PROPERTY|correlationId=mismatch_non_empty_body]]
 [[PROPERTY|method=GET]]
 [[PROPERTY|operationId=showPetById]]
