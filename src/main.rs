@@ -8,8 +8,10 @@ use axum::{
 };
 use axum_macros::debug_handler;
 use clap::{Parser, Subcommand};
+use miette::{miette, Diagnostic, LabeledSpan, NamedSource, SourceSpan};
 use openapiv3::ReferenceOr;
 use std::{path::PathBuf, str::FromStr, sync::Arc};
+use thiserror::Error;
 use tokio::{signal, sync::Mutex};
 use tracing::{debug, error, info, instrument, Level};
 use tracing_subscriber::FmtSubscriber;
@@ -62,14 +64,14 @@ impl std::fmt::Debug for AppState {
     }
 }
 
-#[derive(Debug, Clone, Template)]
+#[derive(Debug, Template)]
 #[template(path = "junit.xml")]
-struct JunitTemplate {
-    testcases: Vec<Testcase>,
+struct JunitTemplate<'a> {
+    testcases: &'a [Testcase],
     failed_testcases: usize,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 struct Testcase {
     name: String,
     failures: Vec<TestcaseFailure>,
@@ -83,10 +85,11 @@ struct TestcaseProperty {
     value: String,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 struct TestcaseFailure {
     text: String,
     r#type: TestcaseFailureType,
+    report: Option<miette::Report>,
 }
 
 /// An enum describing the type of test failure that occurred.
@@ -250,6 +253,22 @@ struct ValidatedResponse {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let _ = miette::set_hook(Box::new(|_| {
+        Box::new(
+             miette::MietteHandlerOpts::new()
+            .terminal_links(false)
+            .unicode(true)
+            .context_lines(3)
+            .tab_width(4)
+            .break_words(false)
+            .without_syntax_highlighting()
+            .color(false)
+            .build(),
+            )
+    }));
+
+
+
     let cli = Cli::parse();
 
     match &cli.command {
@@ -329,7 +348,8 @@ async fn start_server(spec: openapiv3::OpenAPI, upstream: url::Url, port: u16) {
 #[instrument(skip_all)]
 #[debug_handler(state = AppState)]
 async fn junit(state: State<AppState>) -> impl IntoResponse {
-    let testcases = state.testcases.lock().await.clone();
+    let lock = state.testcases.lock().await;
+    let testcases: &[Testcase] = lock.as_ref();
     let testcases_with_failures = testcases
         .iter()
         .filter(|testcase| !testcase.failures.is_empty())
@@ -401,15 +421,15 @@ async fn inner_handler(
             failures.push(TestcaseFailure {
                 text: "Path not found".to_string(),
                 r#type: TestcaseFailureType::PathNotFound,
+                report: None,
+                
             });
         }
     }
     let wayfinder_path = wayfinder_match.map(|m| m.route.to_string());
-    let validated_request = validate_request(request, &spec, wayfinder_path.clone()).await;
-    let mut validated_properties = validated_request.properties.clone();
-    let mut validated_failures = validated_request.failures.clone();
-    properties.append(&mut validated_properties);
-    failures.append(&mut validated_failures);
+    let mut validated_request = validate_request(request, &spec, wayfinder_path.clone()).await;
+    properties.append(&mut validated_request.properties);
+    failures.append(&mut validated_request.failures);
     let outgoing_url = upstream.join(&path_remainder).unwrap();
 
     let mut outgoing_request =
@@ -535,6 +555,8 @@ async fn validate_request(
         validated.failures.push(TestcaseFailure {
             text: "Path not found in spec".to_string(),
             r#type: TestcaseFailureType::PathNotFound,
+            report: None,
+            
         });
         return validated;
     }
@@ -554,6 +576,8 @@ async fn validate_request(
         validated.failures.push(TestcaseFailure {
             text: "Invalid HTTP method".to_string(),
             r#type: TestcaseFailureType::InvalidHTTPMethod,
+            report: None,
+            
         });
         return validated;
     }
@@ -569,6 +593,8 @@ async fn validate_request(
         validated.failures.push(TestcaseFailure {
             text: "Client supplied request body when none was included in spec.".to_string(),
             r#type: TestcaseFailureType::RequestMismatchNonEmptyBody,
+            report: None,
+            
         });
         return validated;
     }
@@ -581,6 +607,8 @@ async fn validate_request(
         validated.failures.push(TestcaseFailure {
             text: "Could not find request defined inline or as a #/components/requestBodies/ reference".to_string(),
             r#type: TestcaseFailureType::MissingSchemaDefinition,
+                report: None,
+                
         });
         return validated;
     }
@@ -592,6 +620,8 @@ async fn validate_request(
         validated.failures.push(TestcaseFailure {
             text: "Request did not include a Content-Type header, unable to validate request body schema.".to_string(),
             r#type: TestcaseFailureType::RequestMissingContentTypeHeader,
+                report: None,
+                
         });
         return validated;
     }
@@ -617,6 +647,8 @@ async fn validate_request(
                 request_content_type
             ),
             r#type: TestcaseFailureType::RequestMismatchedContentTypeHeader,
+            report: None,
+            
         });
         return validated;
     }
@@ -631,6 +663,8 @@ async fn validate_request(
             text: "Could not find schema defined inline or as a #/components/schemas/ reference"
                 .to_string(),
             r#type: TestcaseFailureType::MissingSchemaDefinition,
+            report: None,
+            
         });
         return validated;
     }
@@ -641,6 +675,8 @@ async fn validate_request(
             text: "Could not find schema defined inline or as a #/components/schemas/ reference"
                 .to_string(),
             r#type: TestcaseFailureType::MissingSchemaDefinition,
+            report: None,
+            
         });
         return validated;
     }
@@ -650,6 +686,8 @@ async fn validate_request(
         validated.failures.push(TestcaseFailure {
             text: "Failed to parse request body as JSON".to_string(),
             r#type: TestcaseFailureType::RequestFailedJSONDeserialization,
+            report: None,
+            
         });
         return validated;
     }
@@ -743,6 +781,8 @@ fn validate_response(
         validated.failures.push(TestcaseFailure {
             text: "Response not found for status code".to_string(),
             r#type: TestcaseFailureType::InvalidStatusCode,
+            report: None,
+            
         });
         return validated;
     }
@@ -754,6 +794,8 @@ fn validate_response(
                 "Could not find response defined inline or as a #/components/responses/ reference"
                     .to_string(),
             r#type: TestcaseFailureType::MissingResponseDefinition,
+            report: None,
+            
         });
         return validated;
     }
@@ -763,6 +805,8 @@ fn validate_response(
         validated.failures.push(TestcaseFailure {
             text: "Response did not include a Content-Type header".to_string(),
             r#type: TestcaseFailureType::ResponseMissingContentTypeHeader,
+            report: None,
+            
         });
         return validated;
     }
@@ -779,6 +823,8 @@ fn validate_response(
         validated.failures.push(TestcaseFailure {
             text: "Receieved response body when empty body is expected".to_string(),
             r#type: TestcaseFailureType::ResponseMismatchNonEmptyBody,
+            report: None,
+            
         });
         return validated;
     }
@@ -797,6 +843,8 @@ fn validate_response(
                 response_content_type
             ),
             r#type: TestcaseFailureType::ResponseMismatchedContentTypeHeader,
+            report: None,
+            
         });
         return validated;
     }
@@ -808,6 +856,8 @@ fn validate_response(
             validated.failures.push(TestcaseFailure {
                 text: "Receieved response body when empty body is expected".to_string(),
                 r#type: TestcaseFailureType::ResponseMismatchNonEmptyBody,
+                report: None,
+                
             });
         }
         return validated;
@@ -819,6 +869,8 @@ fn validate_response(
             text: "Could not find schema defined inline or as a #/components/schemas/ reference"
                 .to_string(),
             r#type: TestcaseFailureType::MissingSchemaDefinition,
+            report: None,
+            
         });
         return validated;
     }
@@ -832,6 +884,8 @@ fn validate_response(
         validated.failures.push(TestcaseFailure {
             text: "Failed to parse response body as JSON".to_string(),
             r#type: TestcaseFailureType::ResponseFailedJSONDeserialization,
+            report: None,
+            
         });
         return validated;
     }
@@ -873,6 +927,8 @@ fn validate_schema(
                         json_pointer
                     ),
                     r#type: failure_type,
+                    report: None,
+                    
                 });
             }
             failures
@@ -883,6 +939,13 @@ fn validate_schema(
             {
                 return failures;
             }
+            let serde_string = serde_value.to_string();
+
+            let m = miette!(
+                labels = vec![miette::LabeledSpan::at_offset(0, "here")],
+                "messed up bool"
+            );
+            m.with_source_code(serde_string);
             let failure_type = match validation_perspective {
                 ValidationPerspective::Request => {
                     TestcaseFailureType::RequestFailedValidationUnexpectedBoolean
@@ -894,6 +957,8 @@ fn validate_schema(
             failures.push(TestcaseFailure {
                 text: format!("Received unexpected boolean at {}", json_pointer),
                 r#type: failure_type,
+                report: None,
+                
             });
             failures
         }
@@ -920,6 +985,8 @@ fn validate_schema(
             failures.push(TestcaseFailure {
                 text: format!("Received unexpected number at {}", json_pointer),
                 r#type: failure_type,
+                report: None,
+                
             });
             failures
         }
@@ -940,6 +1007,8 @@ fn validate_schema(
             failures.push(TestcaseFailure {
                 text: format!("Received unexpected string at {}", json_pointer),
                 r#type: failure_type,
+                report: None,
+                
             });
             failures
         }
@@ -952,6 +1021,8 @@ fn validate_schema(
                     failures.push(TestcaseFailure {
                         text: "Array schema does not contain items schema".to_string(),
                         r#type: TestcaseFailureType::MissingSchemaDefinition,
+                        report: None,
+                        
                     });
                     return failures;
                 }
@@ -962,6 +1033,8 @@ fn validate_schema(
                     failures.push(TestcaseFailure {
                         text: "Could not find schema defined inline or as a #/components/schemas/ reference for array items".to_string(),
                         r#type: TestcaseFailureType::MissingSchemaDefinition,
+                report: None,
+                
                     });
                     return failures;
                 }
@@ -995,12 +1068,17 @@ fn validate_schema(
                                     TestcaseFailureType::ResponseFailedValidationUnexpectedProperty
                                 }
                             };
+                            let report = miette!(
+                                labels = vec![miette::LabeledSpan::at_offset(0, "here")],
+                                "messed up property"
+                                ).with_source_code(serde_value.to_string());
                             failures.push(TestcaseFailure {
                                 text: format!(
                                     "Unexpected property at {}, value {}",
                                     json_pointer, value
                                 ),
                                 r#type: failure_type,
+                                report: Some(report),
                             });
                             continue;
                         }
@@ -1011,6 +1089,8 @@ fn validate_schema(
                             failures.push(TestcaseFailure {
                                 text: format!("Could not find schema defined inline or as a #/components/schemas/ reference for property at {}", json_pointer),
                                 r#type: TestcaseFailureType::MissingSchemaDefinition,
+                report: None,
+                
                             });
                             continue;
                         }
@@ -1051,6 +1131,8 @@ fn validate_schema(
                             spec_schema.schema_kind, json_pointer
                         ),
                         r#type: failure_type,
+                        report: None,
+                        
                     });
                 }
             }

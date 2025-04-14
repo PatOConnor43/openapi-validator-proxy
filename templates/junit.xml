@@ -8,7 +8,8 @@
 [[PROPERTY|{{prop.name}}={{prop.value}}]]{% endfor %}
 
 Failure message:
-{{ failure.text|safe }}
+{{ failure.text|safe }}{% if let Some(report) = failure.report %}
+{{ report | fmt("{:?}") | safe }}{% endif %}
             </failure>{% endfor %}
         </testcase>{% endfor %}
     </testsuite>
